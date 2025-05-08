@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  ats-nginx:
+    image: nginx:latest
+    container_name: ats-nginx
+    restart: unless-stopped
+    ports:
+      - 5443:443
+    environment:
+      - EXPOSE_DEV_ENDPOINTS=1
+    volumes:
+      - ../configs/nginx/ssl:/ssl/
+      - ../configs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../configs/nginx/mime.types:/etc/nginx/mime.types
+      - ../logs:/logs/
+      - ../src/frontend/static:/app/static
+    depends_on:
+      - ats-web
+
+    deploy:
+      replicas: ${ats_NGINX_REPLICAS:-1}
+
+  ats-web:
+    container_name: ats-web
+    build:
+      context: ..
+      dockerfile: ./docker/web.Dockerfile
+      target: debug
+    restart: always
+    ports:
+      - 8000:8000
+      - 5689:5678
+    stdin_open: true
+    tty: true
+    volumes:
+      - ..:/app
+
+    deploy:
+      replicas: ${ats_WEB_REPLICAS:-1}
+
+networks:
+  default:
+
+

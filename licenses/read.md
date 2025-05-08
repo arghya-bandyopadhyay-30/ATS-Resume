@@ -1,0 +1,1 @@
+# License files annd Certifications required to execute the specific components and their usage rights in the project are to be placed here.

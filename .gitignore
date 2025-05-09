@@ -1,0 +1,51 @@
+# Python virtual environment
+.venv/
+
+# Environment variable files
+.env
+.env.*
+
+# Output and log files
+*.log
+*.json
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# Test coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# pytest cache
+.pytest_cache/
+
+# mypy cache
+.mypy_cache/
+
+# Pyre type checker
+.pyre/
+
+# Build directories
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# VSCode settings
+.vscode/
+
+# Do not ignore source files in src/
+!src/ 

@@ -1,0 +1,81 @@
+Please parse the provided resume text and extract the following sections. Return the result as a **single well-formatted JSON object** using the schema defined below.
+
+---
+
+### 1. Personal Information
+- full_name
+- contact: { phone, email, location, linkedin/github/portfolio }
+- availability or work authorization (if mentioned)
+
+### 2. Professional Summary
+- A brief paragraph summarizing experience, skills, and domain focus
+
+### 3. Skills
+Return as an object where each skill is a key, and value is an object with:
+{
+  "SkillName": {
+    "count": number of distinct projects the skill was used in,
+    "age": number of months since the skill was last used (0 if currently active),
+    "experience_years": total estimated years of using the skill
+  }
+}
+
+### 4. Work Experience
+A list of jobs/projects with:
+- job_title
+- company
+- location (if available)
+- start_date, end_date (Month YYYY format)
+- responsibilities (as bullet points)
+- technologies_used (list)
+
+### 5. Education
+A list with:
+- degree
+- institution
+- start_date, end_date
+- field_of_study
+
+### 6. Certifications
+A list with:
+- name
+- issuing_organization
+- issue_date, expiry_date (if available)
+
+### 7. Projects
+A list with:
+- title
+- description
+- technologies_used
+- role
+- start_date, end_date
+- link (if available)
+
+### 8. Languages
+- A dictionary of language → proficiency
+
+### 9. Awards
+A list with:
+- award_name
+- issued_by
+- date
+
+### 10. Interests
+- A list of hobbies or areas of interest
+
+### 11. References
+A list with:
+- name
+- relationship
+- contact_info
+
+---
+
+### Format Output:
+Return everything as a clean, properly indented JSON object (do not include explanations, markdown, or commentary).
+
+---
+
+Resume Text Starts:
+{{resume_text}}
+Resume Text Ends.

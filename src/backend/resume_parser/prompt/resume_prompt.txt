@@ -2,25 +2,25 @@ Please parse the provided resume text and extract the following sections. Return
 
 ---
 
-### 1. Personal Information
+### 1. personal_information
 - full_name
-- contact: { phone, email, location, linkedin/github/portfolio }
-- availability or work authorization (if mentioned)
+- contact: { phone, email, location, linkedin_github_portfolio }
+- availability_or_work_authorization (if mentioned)
 
-### 2. Professional Summary
+### 2. professional_summary
 - A brief paragraph summarizing experience, skills, and domain focus
 
-### 3. Skills
+### 3. skills
 Return as an object where each skill is a key, and value is an object with:
 {
-  "SkillName": {
+  "skill_name": {
     "count": number of distinct projects the skill was used in,
     "age": number of months since the skill was last used (0 if currently active),
     "experience_years": total estimated years of using the skill
   }
 }
 
-### 4. Work Experience
+### 4. work_experience
 A list of jobs/projects with:
 - job_title
 - company
@@ -29,20 +29,20 @@ A list of jobs/projects with:
 - responsibilities (as bullet points)
 - technologies_used (list)
 
-### 5. Education
+### 5. education
 A list with:
 - degree
 - institution
 - start_date, end_date
 - field_of_study
 
-### 6. Certifications
+### 6. certifications
 A list with:
 - name
 - issuing_organization
 - issue_date, expiry_date (if available)
 
-### 7. Projects
+### 7. projects
 A list with:
 - title
 - description
@@ -51,19 +51,19 @@ A list with:
 - start_date, end_date
 - link (if available)
 
-### 8. Languages
+### 8. languages
 - A dictionary of language → proficiency
 
-### 9. Awards
+### 9. awards
 A list with:
 - award_name
 - issued_by
 - date
 
-### 10. Interests
+### 10. interests
 - A list of hobbies or areas of interest
 
-### 11. References
+### 11. references
 A list with:
 - name
 - relationship
@@ -72,7 +72,7 @@ A list with:
 ---
 
 ### Format Output:
-Return everything as a clean, properly indented JSON object (do not include explanations, markdown, or commentary).
+Return everything as a clean, properly indented JSON object (do not include explanations, markdown, or commentary). All keys must be in lower_snake_case (e.g., personal_information, work_experience, full_name, etc.).
 
 ---
 

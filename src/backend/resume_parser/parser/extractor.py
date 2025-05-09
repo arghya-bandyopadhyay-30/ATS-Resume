@@ -1,10 +1,30 @@
 import json
 import requests
-from typing import Dict
+from dataclasses import dataclass
+from typing import Optional, List, Dict
 
 
 class GroqAPIError(Exception):
     """Custom error for Groq-related failures."""
+
+
+@dataclass
+class SkillEntry:
+    candidate_name: str
+    email: str
+    summary: str
+    skill: str
+    skill_count: Optional[int]
+    skill_age: Optional[int]
+    skill_experience_years: Optional[float]
+    highest_degree: str
+    graduation_year: Optional[int]
+    certifications: str
+    projects: str
+    languages: str
+    awards: str
+    interests: str
+    references: str
 
 
 def extract_resume_json(
@@ -12,20 +32,6 @@ def extract_resume_json(
     prompt_path: str,
     llm_config
 ) -> Dict:
-    """
-    Extract structured JSON from resume text using Groq LLM API.
-
-    Args:
-        resume_text (str): Resume plain text.
-        prompt_path (str): Prompt template path with '{{resume_text}}'.
-        llm_config: LLMConfig dataclass with model_name, endpoint, api_key, temperature.
-
-    Returns:
-        Dict: Parsed JSON structure.
-
-    Raises:
-        GroqAPIError: If API call or parsing fails.
-    """
     try:
         with open(prompt_path, 'r', encoding='utf-8') as f:
             prompt_template = f.read()
@@ -49,32 +55,63 @@ def extract_resume_json(
     try:
         response = requests.post(llm_config.endpoint, headers=headers, json=payload, timeout=60)
         response.raise_for_status()
-        resp_json = response.json()
+        content = response.json()["choices"][0]["message"]["content"].strip()
 
-        if (
-            "choices" not in resp_json or
-            not resp_json["choices"] or
-            "message" not in resp_json["choices"][0] or
-            "content" not in resp_json["choices"][0]["message"]
-        ):
-            raise GroqAPIError(f"Unexpected response structure from Groq: {resp_json}")
-        
-        content = resp_json["choices"][0]["message"]["content"].strip()
-
-        if not content:
-            raise GroqAPIError(f"Empty content in Groq response: {resp_json}")
-        
         if content.startswith('```'):
-            lines = content.split('\n')
-            if lines[0].startswith('```'):
-                lines = lines[1:]
-            if lines and lines[-1].strip() == '```':
-                lines = lines[:-1]
+            lines = content.split('\n')[1:-1] if content.endswith('```') else content.split('\n')[1:]
             content = '\n'.join(lines).strip()
-        
-        try:
-            return json.loads(content)
-        except Exception as parse_err:
-            raise GroqAPIError(f"Failed to parse JSON from Groq content: {content}\nError: {parse_err}")
+
+        return json.loads(content)
     except Exception as e:
-        raise GroqAPIError(f"Failed to get or parse response from Groq: {e}")
+        raise GroqAPIError(f"Failed to parse response from Groq: {e}")
+
+
+def extract_skill_entries(resume_json: dict) -> List[SkillEntry]:
+    personal_info = resume_json.get("personal_information", {})
+    contact = personal_info.get("contact", {}) or {}
+
+    name = personal_info.get("full_name", "")
+    email = contact.get("email", "")
+    summary = resume_json.get("professional_summary", "")
+
+    education_list = resume_json.get("education", [])
+    highest_degree = max((e.get("degree", "") for e in education_list), key=len, default="") if education_list else ""
+    graduation_year = max(
+        [int(e.get("end_date")) for e in education_list if str(e.get("end_date")).isdigit()],
+        default=0
+    )
+
+    certifications = json.dumps(resume_json.get("certifications", []), ensure_ascii=False)
+    projects = json.dumps(resume_json.get("projects", []), ensure_ascii=False)
+    languages = json.dumps(resume_json.get("languages", {}), ensure_ascii=False)
+    awards = json.dumps(resume_json.get("awards", []), ensure_ascii=False)
+    interests = json.dumps(resume_json.get("interests", []), ensure_ascii=False)
+    references = json.dumps(resume_json.get("references", []), ensure_ascii=False)
+
+    skills = resume_json.get("skills", {})
+    entries = []
+
+    for skill, meta in skills.items():
+        if not isinstance(meta, dict):
+            continue
+
+        entry = SkillEntry(
+            candidate_name=name,
+            email=email,
+            summary=summary,
+            skill=skill,
+            skill_count=meta.get("count", ""),
+            skill_age=meta.get("age", ""),
+            skill_experience_years=meta.get("experience_years", ""),
+            highest_degree=highest_degree,
+            graduation_year=graduation_year,
+            certifications=certifications,
+            projects=projects,
+            languages=languages,
+            awards=awards,
+            interests=interests,
+            references=references
+        )
+        entries.append(entry)
+
+    return entries

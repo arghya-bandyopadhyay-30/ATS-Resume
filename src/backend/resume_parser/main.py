@@ -3,7 +3,8 @@ import yaml
 import json
 from dataclasses import dataclass
 from parser.reader import extract_text_from_docx
-from parser.extractor import extract_resume_json
+from parser.extractor import extract_resume_json, extract_skill_entries
+from parser.writer import write_skill_entries_to_csv
 
 
 @dataclass
@@ -26,11 +27,13 @@ class ResumeParserConfig:
 def load_config(config_path: str) -> ResumeParserConfig:
     with open(config_path, 'r') as file:
         config_dict = yaml.safe_load(file)
-    print(f"[DEBUG] Loaded config_dict: {config_dict} (type: {type(config_dict)})")
+
     if not config_dict:
-        raise ValueError("Config file is empty or could not be parsed. Please check config.yaml.")
-    if 'data_folder' not in config_dict or 'resume_extension' not in config_dict or 'llm' not in config_dict:
-        raise ValueError("Missing required config keys: 'data_folder', 'resume_extension', or 'llm'")
+        raise ValueError("Config file is empty or invalid.")
+
+    required_keys = ['data_folder', 'resume_extension', 'llm']
+    if not all(k in config_dict for k in required_keys):
+        raise ValueError(f"Missing one of the required config keys: {required_keys}")
 
     llm_config = config_dict['llm']
     for key in ['provider', 'model_name', 'endpoint', 'api_key']:
@@ -52,48 +55,51 @@ def load_config(config_path: str) -> ResumeParserConfig:
 
 
 def main():
-    config_path = os.path.join(os.path.dirname(__file__), 'config.yaml')
-    config = load_config(config_path)
-    data_dir = os.path.join(os.path.dirname(__file__), config.data_folder)
+    base_dir = os.path.dirname(__file__)
+    config = load_config(os.path.join(base_dir, 'config.yaml'))
+    data_dir = os.path.join(base_dir, config.data_folder)
+    prompt_path = os.path.join(base_dir, 'prompt', 'resume_prompt.txt')
+    output_json_dir = os.path.join(base_dir, 'output')
+    os.makedirs(output_json_dir, exist_ok=True)
 
-    if not os.path.isdir(data_dir):
-        raise FileNotFoundError(f"Directory '{config.data_folder}' not found at path: {data_dir}")
+    all_skill_entries = []
 
-    resume_texts = []
     for filename in os.listdir(data_dir):
-        if filename.lower().endswith(config.resume_extension.lower()):
-            try:
-                file_path = os.path.join(data_dir, filename)
-                resume_text = extract_text_from_docx(file_path)
-                resume_texts.append((filename, resume_text))
-            except Exception as e:
-                print(f"[ERROR] Skipping {filename}: {e}")
-
-    for filename, resume_text in resume_texts:
-        print(f"\n----- START OF {filename} -----\n{resume_text}\n----- END OF {filename} -----")
-
-        prompt_path = os.path.join(os.path.dirname(__file__), 'prompt', 'resume_prompt.txt')
-        try:
-            parsed_json = extract_resume_json(
-                resume_text=resume_text,
-                prompt_path=prompt_path,
-                llm_config=config.llm
-            )
-            print(f"[SUCCESS] Extracted JSON for {filename}")
-        except Exception as e:
-            print(f"[ERROR] Failed to extract JSON for {filename}: {e}")
+        if not filename.lower().endswith(config.resume_extension.lower()):
             continue
 
-        output_dir = os.path.join(os.path.dirname(__file__), 'output')
-        os.makedirs(output_dir, exist_ok=True)
-        base_name, _ = os.path.splitext(filename)
-        output_file = os.path.join(output_dir, f"parsed_{base_name}.json")
+        file_path = os.path.join(data_dir, filename)
+        try:
+            resume_text = extract_text_from_docx(file_path)
+            print(f"[INFO] Extracted text from {filename}")
+        except Exception as e:
+            print(f"[ERROR] Could not read {filename}: {e}")
+            continue
 
         try:
-            with open(output_file, 'w', encoding='utf-8') as f:
+            parsed_json = extract_resume_json(resume_text, prompt_path, config.llm)
+            print(f"[SUCCESS] Parsed JSON for {filename}")
+        except Exception as e:
+            print(f"[ERROR] Failed to extract JSON from {filename}: {e}")
+            continue
+
+        # Save JSON
+        base_name, _ = os.path.splitext(filename)
+        json_path = os.path.join(output_json_dir, f"parsed_{base_name}.json")
+        try:
+            with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(parsed_json, f, indent=2, ensure_ascii=False)
         except Exception as e:
-            print(f"[ERROR] Could not save JSON for {filename}: {e}")
+            print(f"[ERROR] Failed to save JSON for {filename}: {e}")
+
+        # Extract and collect skill entries
+        skill_entries = extract_skill_entries(parsed_json)
+        all_skill_entries.extend(skill_entries)
+
+    # Write to final CSV
+    output_csv_path = os.path.join(base_dir, 'output', 'parsed_resume_skills.csv')
+    write_skill_entries_to_csv(all_skill_entries, output_csv_path)
+    print(f"[SUCCESS] Wrote enriched CSV to {output_csv_path}")
 
 
 if __name__ == "__main__":

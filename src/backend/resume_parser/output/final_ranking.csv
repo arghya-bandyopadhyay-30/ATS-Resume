@@ -1,7 +1,7 @@
-candidate_name,role,score
-Meena Roy,Cloud Architect,94
-Balaji Vijayan,Application Developer,87
-Rahul Nair,DevOps Engineer,66
-Vikram Mehta,Backend Engineer,48
-Ayesha Singh,Machine Learning Engineer,39
-Sarah Thomas,Data Analyst,31
+candidate_name,role,score,recommendation_label
+Meena Roy,Cloud Architect,94,Highly Recommended
+Balaji Vijayan,Application Developer,87,Well-Suited for the Role
+Rahul Nair,DevOps Engineer,66,May Require Further Evaluation
+Vikram Mehta,Backend Engineer,48,May Require Further Evaluation
+Ayesha Singh,Machine Learning Engineer,39,May Require Further Evaluation
+Sarah Thomas,Data Analyst,31,May Require Further Evaluation

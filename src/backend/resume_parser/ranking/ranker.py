@@ -2,6 +2,17 @@ import json
 import csv
 import os
 
+def get_recommendation_label(score: int) -> str:
+    """Get recommendation label based on candidate score."""
+    if score >= 90:
+        return "Highly Recommended"
+    elif score >= 80:
+        return "Well-Suited for the Role"
+    elif score >= 70:
+        return "Good Potential"
+    else:
+        return "May Require Further Evaluation"
+
 def rank_candidates():
     # Get base directory (src/backend/resume_parser)
     base_dir = os.path.dirname(os.path.dirname(__file__))
@@ -34,14 +45,15 @@ def rank_candidates():
     # Write to CSV
     output_path = os.path.join(base_dir, 'output', 'final_ranking.csv')
     with open(output_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=['candidate_name', 'role', 'score'])
+        writer = csv.DictWriter(f, fieldnames=['candidate_name', 'role', 'score', 'recommendation_label'])
         writer.writeheader()
         for name, score in ranked_candidates:
             matching_profile = next((p for p in profiles if p['name'] == name), {})
             writer.writerow({
                 'candidate_name': name,
                 'role': matching_profile.get('role', 'Employer'),
-                'score': score
+                'score': score,
+                'recommendation_label': get_recommendation_label(score)
             })
 
 if __name__ == '__main__':

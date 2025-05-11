@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1706986-0cae-4eb1-805a-a94bf1782a36" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resume_skills.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resume_skills.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/parser/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/parser/extractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/parser/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/parser/writer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/candidate_profiles.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/final_ranking.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/jd_weights.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resume_skills.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resumes/parsed_Ayesha_Singh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resumes/parsed_Balaji_Vijayan.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resumes/parsed_Rahul_Nair.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resumes/parsed_Sarah_Thomas.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resumes/parsed_Vikram_Mehta.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/scorer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/scorer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

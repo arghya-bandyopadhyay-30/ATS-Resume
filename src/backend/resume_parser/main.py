@@ -10,6 +10,7 @@ from src.backend.resume_parser.parser.reader import extract_text_from_docx
 from src.backend.resume_parser.parser.writer import write_skill_entries_to_csv
 from src.backend.resume_parser.ranking.jd_analyzer import generate_weights_from_jd
 from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
+from src.backend.resume_parser.ranking.ranker import rank_candidates
 
 
 def load_config(config_path: str) -> ResumeParserConfig:
@@ -156,6 +157,10 @@ def main():
     with open(profiles_path, 'w', encoding='utf-8') as f:
         json.dump(candidate_profiles, f, indent=2, ensure_ascii=False)
     print(f"[SUCCESS] Saved candidate profiles to {profiles_path}")
+
+    # Generate final ranking
+    rank_candidates()
+    print("[SUCCESS] Generated final candidate ranking")
 
 
 if __name__ == '__main__':

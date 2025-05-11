@@ -9,6 +9,7 @@ from src.backend.resume_parser.parser.extractor import extract_resume_json, extr
 from src.backend.resume_parser.parser.reader import extract_text_from_docx
 from src.backend.resume_parser.parser.writer import write_skill_entries_to_csv
 from src.backend.resume_parser.ranking.jd_analyzer import generate_weights_from_jd
+from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
 
 
 def load_config(config_path: str) -> ResumeParserConfig:
@@ -133,7 +134,7 @@ def main():
     _setup_output_directories(base_dir, parsed_json_dir, csv_output_path)
 
     prompt_path = os.path.join(base_dir, 'prompt', 'resume_prompt.txt')
-    
+
     # Process all resumes and collect skill entries
     all_skill_entries = _process_resumes(resumes_dir, parsed_json_dir, prompt_path, config.llm, config.resume_extension)
 
@@ -143,6 +144,18 @@ def main():
 
     # Analyze job description and generate weights
     _analyze_job_description(base_dir, config, csv_output_path)
+
+    # Build candidate profiles
+    from_path = os.path.join(base_dir, 'output', 'parsed_resume_skills.csv')
+    weights_path = os.path.join(base_dir, 'output', 'jd_weights.json')
+    candidate_profiles = build_candidate_profiles(from_path, weights_path)
+    print(f"[SUCCESS] Built {len(candidate_profiles)} candidate profiles for ranking")
+
+    # Save candidate profiles to JSON for verification
+    profiles_path = os.path.join(base_dir, 'output', 'candidate_profiles.json')
+    with open(profiles_path, 'w', encoding='utf-8') as f:
+        json.dump(candidate_profiles, f, indent=2, ensure_ascii=False)
+    print(f"[SUCCESS] Saved candidate profiles to {profiles_path}")
 
 
 if __name__ == '__main__':

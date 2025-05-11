@@ -20,12 +20,14 @@ def rank_candidates():
     ranked_candidates = []
     for profile in profiles:
         name = profile.get('name', '<unknown>')
-        score = sum(
+        raw = sum(
             profile.get(skill, 0.0) * weight
             for skill, weight in jd_weights.items()
         )
-        ranked_candidates.append((name, round(score, 4)))
-    
+        # turn 0–1 into 0–100
+        percent = round(raw * 100)
+        ranked_candidates.append((name, percent))
+
     # Sort by descending score
     ranked_candidates.sort(key=lambda x: x[1], reverse=True)
     

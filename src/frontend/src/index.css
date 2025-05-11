@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* global resets & Inter font */
+@layer base {
+  body {
+    background-color: #F5F7FA;
+    color: #333333;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* two-column layout: 1fr on mobile, 30%/70% on md+ */
+@layer components {
+  .app-container {
+    @apply mx-auto min-h-screen p-8 grid grid-cols-1 md:[grid-template-columns:30%_70%] gap-8;
+    max-width: 1440px;
+  }
+}

@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1706986-0cae-4eb1-805a-a94bf1782a36" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/data/job_description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/final_ranking.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resume_skills.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/prompt/jd_prompt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/prompt/jd_prompt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/jd_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/jd_analyzer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/src/components/ResumeUploader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/src/components/ResumeUploader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/final_ranking.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/output/final_ranking.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/jd_weights.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/output/jd_weights.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/parser/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/parser/extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/scorer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/scorer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

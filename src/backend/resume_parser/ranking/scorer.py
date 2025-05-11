@@ -6,6 +6,43 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def _normalize_skill(skill: str) -> str:
+    """Normalize skill name for comparison."""
+    return skill.lower().replace('_', ' ').strip()
+
+def _is_skill_match(candidate_skill: str, jd_skill: str) -> bool:
+    """Check if candidate skill matches JD skill, considering partial matches."""
+    candidate_norm = _normalize_skill(candidate_skill)
+    jd_norm = _normalize_skill(jd_skill)
+    
+    # Exact match
+    if candidate_norm == jd_norm:
+        return True
+        
+    # Check if JD skill is contained in candidate skill
+    if jd_norm in candidate_norm:
+        return True
+        
+    # Check if candidate skill is contained in JD skill
+    if candidate_norm in jd_norm:
+        return True
+        
+    # Check for common variations
+    variations = {
+        'programming_languages': ['python', 'java', 'javascript', 'typescript', 'c#', 'c++', 'ruby', 'go', 'rust'],
+        'frameworks_tools': ['react', 'angular', 'vue', 'django', 'flask', 'spring', 'express', 'node.js'],
+        'databases': ['sql', 'mysql', 'postgresql', 'mongodb', 'redis', 'cassandra', 'dynamodb'],
+        'cloud_platforms': ['aws', 'azure', 'gcp', 'cloud', 'kubernetes', 'docker', 'terraform'],
+        'methodologies': ['agile', 'scrum', 'waterfall', 'devops', 'ci_cd', 'tdd', 'bdd']
+    }
+    
+    for category, skills in variations.items():
+        if candidate_norm == category and jd_norm in skills:
+            return True
+        if jd_norm == category and candidate_norm in skills:
+            return True
+            
+    return False
 
 def build_candidate_profiles(csv_path: str, jd_weights_path: str) -> List[Dict]:
     """
@@ -45,19 +82,20 @@ def build_candidate_profiles(csv_path: str, jd_weights_path: str) -> List[Dict]:
 
         # Calculate scores for each JD skill
         for skill, weight in jd_weights.items():
-            # Check if skill exists in candidate's data
-            skill_data = group[group['skill'].str.lower() == skill.lower()]
-
-            if not skill_data.empty:
-                # Get skill metrics
-                experience_years = float(skill_data['skill_experience_years'].iloc[0])
-                count = float(skill_data['skill_count'].iloc[0])
-                age = float(skill_data['skill_age'].iloc[0])
+            # Find matching skills in candidate's data
+            matching_skills = group[group['skill'].apply(lambda x: _is_skill_match(x, skill))]
+            
+            if not matching_skills.empty:
+                # Get the best matching skill's metrics
+                best_skill = matching_skills.iloc[0]
+                experience_years = float(best_skill['skill_experience_years'])
+                count = float(best_skill['skill_count'])
+                age = float(best_skill['skill_age'])
 
                 # Calculate age normalization
                 age_normalized = min(age / 24, 1.0) if age > 0 else 0.0
 
-                # Calculate skill score
+                # Calculate skill score with adjusted weights
                 score = (0.4 * experience_years) + (0.3 * count) + (0.3 * (1 - age_normalized))
             else:
                 # Check if skill is in summary/languages/certifications
@@ -67,7 +105,12 @@ def build_candidate_profiles(csv_path: str, jd_weights_path: str) -> List[Dict]:
                     str(profile['certifications']).lower()
                 ]
 
-                score = 1.0 if any(skill.lower() in field for field in text_fields) else 0.0
+                # Check for partial matches in text fields
+                score = 0.0
+                for field in text_fields:
+                    if _normalize_skill(skill) in field:
+                        score = 0.5  # Give partial credit for mentions in text
+                        break
 
             profile[skill] = score
 

@@ -5,6 +5,7 @@ from pathlib import Path
 import uvicorn
 import os
 import sys
+import json
 from pydantic import BaseModel
 from typing import Dict, List
 
@@ -14,6 +15,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.backend.resume_parser.config_models import ResumeParserConfig, LLMConfig
 from src.backend.resume_parser.main import main as process_resumes
 from src.backend.resume_parser.ranking.jd_utils import analyze_jd_text
+from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
+from src.backend.resume_parser.ranking.ranker import rank_candidates
 
 app = FastAPI()
 
@@ -53,7 +56,6 @@ async def get_rankings():
 @app.post("/analyze-jd")
 async def analyze_jd(jd: JobDescription):
     try:
-        # Get the base directory and load config
         base_dir = Path(__file__).parent / "resume_parser"
         config = ResumeParserConfig(
             data_folder="data",
@@ -67,10 +69,9 @@ async def analyze_jd(jd: JobDescription):
                 max_tokens=4096
             )
         )
-        
-        # First, process resumes to ensure we have the CSV file
+
+        # Step 1: Ensure resumes have been processed already
         try:
-            # Process resumes without JD analysis
             process_resumes(skip_jd_analysis=True)
         except Exception as e:
             print(f"Error processing resumes: {e}")
@@ -78,16 +79,15 @@ async def analyze_jd(jd: JobDescription):
                 status_code=500,
                 detail="Failed to process resumes. Please ensure resume files are present in the data folder."
             )
-        
-        # Path to the parsed resume skills CSV
+
+        # Step 2: Analyze the JD
         csv_output_path = base_dir / "output" / "parsed_resume_skills.csv"
         if not csv_output_path.exists():
             raise HTTPException(
                 status_code=500,
                 detail="Resume processing failed. No skills data available."
             )
-        
-        # Analyze the JD text and generate weights
+
         try:
             weights = analyze_jd_text(jd.jd_text, str(base_dir), config, str(csv_output_path))
         except Exception as e:
@@ -96,22 +96,32 @@ async def analyze_jd(jd: JobDescription):
                 status_code=500,
                 detail=f"Failed to analyze job description: {str(e)}"
             )
-        
-        # Process resumes again with the new weights
+
+        # Step 3: Rebuild candidate profiles & rankings with updated weights
         try:
-            # This time we don't skip JD analysis since we have weights
-            process_resumes(skip_jd_analysis=False)
+            candidate_profiles = build_candidate_profiles(
+                str(csv_output_path),
+                str(base_dir / "output" / "jd_weights.json")
+            )
+
+            profiles_path = base_dir / "output" / "candidate_profiles.json"
+            with open(profiles_path, 'w', encoding='utf-8') as f:
+                json.dump(candidate_profiles, f, indent=2, ensure_ascii=False)
+
+            rank_candidates()
+
         except Exception as e:
-            print(f"Error processing resumes with new weights: {e}")
+            print(f"Error generating rankings: {e}")
             raise HTTPException(
                 status_code=500,
-                detail="Failed to update rankings with new weights."
+                detail="Failed to update candidate rankings with new weights."
             )
-        
+
         return {
             "message": "Job description analyzed and candidates ranked successfully",
             "weights": weights
         }
+
     except HTTPException:
         raise
     except Exception as e:
@@ -122,4 +132,4 @@ async def analyze_jd(jd: JobDescription):
         )
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="0.0.0.0", port=8000)

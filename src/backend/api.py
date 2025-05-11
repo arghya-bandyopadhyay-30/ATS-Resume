@@ -64,8 +64,10 @@ async def get_rankings():
             reader = csv.DictReader(file)
             for row in reader:
                 rankings.append({
-                    "candidate_name": row["candidate_name"],
-                    "score": float(row["score"])
+                    "candidate_name":       row["candidate_name"],
+                    "role":                 row["role"],
+                    "score":                float(row["score"]),
+                    "recommendation_label": row["recommendation_label"]
                 })
     except Exception as e:
         print(f"Error reading rankings: {e}")

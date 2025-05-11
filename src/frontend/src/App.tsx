@@ -4,20 +4,22 @@ import { ResumeUploader } from './components/ResumeUploader';
 import { CandidateList } from './components/CandidateList';
 import { Footer } from './components/Footer';
 
-interface Candidate {
+interface BackendCandidate {
   candidate_name: string;
+  role: string;
   score: number;
+  recommendation_label?: string;
 }
 
 export const App: React.FC = () => {
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [candidates, setCandidates] = useState<BackendCandidate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchRankings = async () => {
     try {
       const response = await fetch('http://localhost:8000/rankings');
-      const data = await response.json();
+      const data: BackendCandidate[] = await response.json();
       setCandidates(data);
       setError(null);
     } catch (err) {
@@ -40,20 +42,13 @@ export const App: React.FC = () => {
     setError(null);
 
     try {
-      // Send job description to backend
       const response = await fetch('http://localhost:8000/analyze-jd', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jd_text: text }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to analyze job description');
-      }
-
-      // Refresh rankings after successful analysis
+      if (!response.ok) throw new Error('Failed to analyze job description');
       await fetchRankings();
     } catch (err) {
       console.error('Failed to submit job description:', err);
@@ -68,15 +63,21 @@ export const App: React.FC = () => {
       <Header />
       <main className="flex-grow">
         <ResumeUploader onSubmit={handleResumeSubmit} isLoading={isLoading} />
+
         {error && (
           <div className="max-w-3xl mx-auto px-4 mt-4">
             <p className="text-red-500 text-sm">{error}</p>
           </div>
         )}
-        <CandidateList candidates={candidates.map(c => ({
-          name: c.candidate_name,
-          score: c.score
-        }))} />
+
+        <CandidateList
+          candidates={candidates.map(c => ({
+            name: c.candidate_name,
+            title: c.role,
+            score: c.score,
+            recommendation_label: c.recommendation_label,
+          }))}
+        />
       </main>
       <Footer />
     </div>

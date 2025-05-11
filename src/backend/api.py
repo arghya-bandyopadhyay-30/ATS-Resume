@@ -6,6 +6,7 @@ import uvicorn
 import os
 import sys
 import json
+import yaml
 from pydantic import BaseModel
 from typing import Dict, List
 
@@ -17,6 +18,25 @@ from src.backend.resume_parser.main import main as process_resumes
 from src.backend.resume_parser.ranking.jd_utils import analyze_jd_text
 from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
 from src.backend.resume_parser.ranking.ranker import rank_candidates
+
+def load_config() -> ResumeParserConfig:
+    config_path = Path(__file__).parent / "resume_parser" / "config.yaml"
+    try:
+        with open(config_path, 'r') as f:
+            config_data = yaml.safe_load(f)
+            
+        llm_config = LLMConfig(**config_data['llm'])
+        return ResumeParserConfig(
+            data_folder=config_data['data_folder'],
+            resume_extension=config_data['resume_extension'],
+            llm=llm_config
+        )
+    except Exception as e:
+        print(f"Error loading config: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to load configuration"
+        )
 
 app = FastAPI()
 
@@ -57,18 +77,7 @@ async def get_rankings():
 async def analyze_jd(jd: JobDescription):
     try:
         base_dir = Path(__file__).parent / "resume_parser"
-        config = ResumeParserConfig(
-            data_folder="data",
-            resume_extension=".docx",
-            llm=LLMConfig(
-                provider="groq",
-                model_name="gemma2-9b-it",
-                endpoint="https://api.groq.com/openai/v1/chat/completions",
-                api_key="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",
-                temperature=0.0,
-                max_tokens=4096
-            )
-        )
+        config = load_config()
 
         # Step 1: Ensure resumes have been processed already
         try:

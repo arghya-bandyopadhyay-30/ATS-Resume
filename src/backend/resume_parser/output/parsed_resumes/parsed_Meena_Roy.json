@@ -1,0 +1,105 @@
+{
+  "personal_information": {
+    "full_name": "Meena Roy",
+    "contact": {
+      "phone": null,
+      "email": null,
+      "location": null,
+      "linkedin_github_portfolio": null
+    },
+    "availability_or_work_authorization": null
+  },
+  "professional_summary": "Meena serves Thoughtworks as a Cloud Architect with twelve years of experience in designing cloud-native architectures, leading data migration efforts, and optimizing cost-performance tradeoffs across AWS, GCP, and Azure.",
+  "skills": {
+    "programming_languages": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 12
+    },
+    "frameworks_tools": {
+      "count": 3,
+      "age": 0,
+      "experience_years": 12
+    },
+    "databases": {
+      "count": 3,
+      "age": 0,
+      "experience_years": 12
+    },
+    "cloud_platforms": {
+      "count": 3,
+      "age": 0,
+      "experience_years": 12
+    },
+    "methodologies": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 12
+    }
+  },
+  "work_experience": [
+    {
+      "job_title": "Cloud Architect",
+      "company": "Thoughtworks",
+      "location": null,
+      "start_date": "Aug 2022",
+      "end_date": "Present",
+      "responsibilities": [
+        "Led the design of a cloud-native data platform.",
+        "Migrated on-prem Hadoop clusters to GCP BigQuery and implemented IAM and VPC security configurations."
+      ],
+      "technologies_used": [
+        "GCP",
+        "BigQuery",
+        "Terraform",
+        "Python",
+        "Apache Beam"
+      ]
+    },
+    {
+      "job_title": "Lead Cloud Architect",
+      "company": "TechNova",
+      "location": null,
+      "start_date": "Apr 2015",
+      "end_date": "Jul 2022",
+      "responsibilities": [
+        "Architected and implemented multi-region data pipelines and storage solutions across AWS and Azure.",
+        "Mentored DevOps and DataOps teams."
+      ],
+      "technologies_used": [
+        "AWS (S3, EMR)",
+        "Azure Data Lake",
+        "Spark",
+        "Python"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master’s in Information Technology",
+      "institution": "BITS Pilani",
+      "start_date": null,
+      "end_date": "2012",
+      "field_of_study": "Information Technology"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Google Professional Cloud Architect",
+      "issuing_organization": "Google",
+      "issue_date": "2023",
+      "expiry_date": null
+    },
+    {
+      "name": "Azure Solutions Architect Expert",
+      "issuing_organization": "Microsoft",
+      "issue_date": "2022",
+      "expiry_date": null
+    }
+  ],
+  "projects": [],
+  "languages": {},
+  "awards": [],
+  "interests": [],
+  "references": []
+}

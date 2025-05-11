@@ -8,7 +8,7 @@ from src.backend.resume_parser.config_models import ResumeParserConfig, LLMConfi
 from src.backend.resume_parser.parser.extractor import extract_resume_json, extract_skill_entries
 from src.backend.resume_parser.parser.reader import extract_text_from_docx
 from src.backend.resume_parser.parser.writer import write_skill_entries_to_csv
-from src.backend.resume_parser.ranking.jd_analyzer import generate_weights_from_jd
+from src.backend.resume_parser.ranking.jd_utils import analyze_jd_text
 from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
 from src.backend.resume_parser.ranking.ranker import rank_candidates
 
@@ -97,29 +97,14 @@ def _analyze_job_description(base_dir: str, config: ResumeParserConfig, csv_outp
             jd_text = f.read()
         print("[INFO] Loaded job description")
 
-        # Extract distinct skills from CSV
-        with open(csv_output_path, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            skills = {row['skill'].strip().lower() for row in reader if row.get('skill')}
-            keywords = sorted(skills)
-        print(f"[INFO] Extracted {len(keywords)} distinct skill keywords: {keywords}")
-
-        # Generate weights
-        jd_prompt_path = os.path.join(base_dir, 'prompt', 'jd_prompt.txt')
-        weights = generate_weights_from_jd(jd_text, jd_prompt_path, config.llm)
-        print("[SUCCESS] Generated JD weights")
-
-        # Save weights JSON
-        weights_path = os.path.join(base_dir, 'output', 'jd_weights.json')
-        with open(weights_path, 'w', encoding='utf-8') as file:
-            json.dump(weights, file, indent=2, ensure_ascii=False)
-        print(f"[SUCCESS] Saved JD weights to {weights_path}")
+        # Use the new utility function
+        analyze_jd_text(jd_text, base_dir, config, csv_output_path)
 
     except Exception as e:
         print(f"[ERROR] JD analysis failed: {e}")
 
 
-def main():
+def main(skip_jd_analysis: bool = False):
     base_dir = os.path.dirname(__file__)
     config = load_config(os.path.join(base_dir, 'config.yaml'))
 
@@ -131,6 +116,7 @@ def main():
     # Output paths
     parsed_json_dir = os.path.join(base_dir, 'output', 'parsed_resumes')
     csv_output_path = os.path.join(base_dir, 'output', 'parsed_resume_skills.csv')
+    weights_path = os.path.join(base_dir, 'output', 'jd_weights.json')
 
     _setup_output_directories(base_dir, parsed_json_dir, csv_output_path)
 
@@ -143,24 +129,27 @@ def main():
     write_skill_entries_to_csv(all_skill_entries, csv_output_path)
     print(f"[SUCCESS] Wrote enriched CSV to {csv_output_path}")
 
-    # Analyze job description and generate weights
-    _analyze_job_description(base_dir, config, csv_output_path)
+    # Analyze job description and generate weights (if not skipped)
+    if not skip_jd_analysis:
+        _analyze_job_description(base_dir, config, csv_output_path)
 
-    # Build candidate profiles
-    from_path = os.path.join(base_dir, 'output', 'parsed_resume_skills.csv')
-    weights_path = os.path.join(base_dir, 'output', 'jd_weights.json')
-    candidate_profiles = build_candidate_profiles(from_path, weights_path)
-    print(f"[SUCCESS] Built {len(candidate_profiles)} candidate profiles for ranking")
+    # Build candidate profiles only if weights exist
+    if os.path.exists(weights_path):
+        from_path = os.path.join(base_dir, 'output', 'parsed_resume_skills.csv')
+        candidate_profiles = build_candidate_profiles(from_path, weights_path)
+        print(f"[SUCCESS] Built {len(candidate_profiles)} candidate profiles for ranking")
 
-    # Save candidate profiles to JSON for verification
-    profiles_path = os.path.join(base_dir, 'output', 'candidate_profiles.json')
-    with open(profiles_path, 'w', encoding='utf-8') as f:
-        json.dump(candidate_profiles, f, indent=2, ensure_ascii=False)
-    print(f"[SUCCESS] Saved candidate profiles to {profiles_path}")
+        # Save candidate profiles to JSON for verification
+        profiles_path = os.path.join(base_dir, 'output', 'candidate_profiles.json')
+        with open(profiles_path, 'w', encoding='utf-8') as f:
+            json.dump(candidate_profiles, f, indent=2, ensure_ascii=False)
+        print(f"[SUCCESS] Saved candidate profiles to {profiles_path}")
 
-    # Generate final ranking
-    rank_candidates()
-    print("[SUCCESS] Generated final candidate ranking")
+        # Generate final ranking
+        rank_candidates()
+        print("[SUCCESS] Generated final candidate ranking")
+    else:
+        print("[INFO] Skipping candidate ranking as no JD weights are available yet")
 
 
 if __name__ == '__main__':

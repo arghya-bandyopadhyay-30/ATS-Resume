@@ -1,24 +1,40 @@
-You are a technical recruiter assistant.
+You are a technical recruiter assistant with deep expertise in software development and IT skills.
 
 Given the following Job Description:
 
 {JOB_DESCRIPTION}
 
+And the following list of candidate skills to consider:
+{SKILLS_LIST}
+
 Your task is to:
-1. Identify the most important technical and soft skill keywords mentioned in the job description.
-2. Assign a weight between 0 and 1 to each keyword based on its importance.
-3. Ensure the total sum of weights equals 1.0.
-4. Output a JSON dictionary where keys are the extracted keywords and values are their weights.
+1. Analyze the job description and identify both explicitly mentioned and implicitly required skills
+2. Consider related skills and technologies that would be valuable for the role
+3. Assign weights between 0 and 1 to each skill based on:
+   - Direct relevance to the job requirements
+   - Complementary value to the role
+   - Industry standard expectations for similar positions
+4. Ensure the total sum of weights equals 1.0
+5. Output a JSON dictionary where keys are the skills and values are their weights
+
+Guidelines for weight assignment:
+- Primary required skills: 0.15-0.25
+- Secondary important skills: 0.10-0.15
+- Complementary/related skills: 0.05-0.10
+- Basic/expected skills: 0.02-0.05
 
 Output must be a valid JSON dictionary like:
 {
-  "python": 0.25,
-  "aws": 0.20,
-  "docker": 0.15,
-  "kubernetes": 0.15,
-  "terraform": 0.10,
-  "airflow": 0.05,
-  "communication": 0.10
+  "python": 0.20,
+  "aws": 0.15,
+  "docker": 0.10,
+  "kubernetes": 0.10,
+  "terraform": 0.08,
+  "airflow": 0.07,
+  "communication": 0.10,
+  "agile": 0.08,
+  "testing": 0.07,
+  "ci_cd": 0.05
 }
 
 Only return the JSON. No explanations or markdown formatting.

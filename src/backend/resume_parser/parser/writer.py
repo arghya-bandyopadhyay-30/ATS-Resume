@@ -12,7 +12,7 @@ def write_skill_entries_to_csv(skill_entries: List[SkillEntry], output_path: str
     headers = [
         "candidate_name", "email", "summary", "skill", "skill_count", "skill_age", "skill_experience_years",
         "highest_degree", "graduation_year", "certifications", "projects", "languages",
-        "awards", "interests", "references"
+        "awards", "interests", "references", "role"
     ]
 
     with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:

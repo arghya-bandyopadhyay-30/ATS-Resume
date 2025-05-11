@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1706986-0cae-4eb1-805a-a94bf1782a36" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/final_ranking.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/output/final_ranking.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/jd_weights.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/output/jd_weights.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resume_skills.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/output/parsed_resume_skills.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/parser/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/parser/extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/parser/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/parser/writer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/scorer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/scorer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

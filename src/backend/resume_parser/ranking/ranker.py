@@ -34,9 +34,15 @@ def rank_candidates():
     # Write to CSV
     output_path = os.path.join(base_dir, 'output', 'final_ranking.csv')
     with open(output_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(['candidate_name', 'score'])
-        writer.writerows(ranked_candidates)
+        writer = csv.DictWriter(f, fieldnames=['candidate_name', 'role', 'score'])
+        writer.writeheader()
+        for name, score in ranked_candidates:
+            matching_profile = next((p for p in profiles if p['name'] == name), {})
+            writer.writerow({
+                'candidate_name': name,
+                'role': matching_profile.get('role', 'Employer'),
+                'score': score
+            })
 
 if __name__ == '__main__':
     rank_candidates()

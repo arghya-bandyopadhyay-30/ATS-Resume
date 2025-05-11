@@ -77,7 +77,8 @@ def build_candidate_profiles(csv_path: str, jd_weights_path: str) -> List[Dict]:
             "name": candidate_name,
             "summary": group['summary'].iloc[0],
             "languages": group['languages'].iloc[0],
-            "certifications": group['certifications'].iloc[0]
+            "certifications": group['certifications'].iloc[0],
+            "role": group['role'].iloc[0]
         }
 
         # Calculate scores for each JD skill

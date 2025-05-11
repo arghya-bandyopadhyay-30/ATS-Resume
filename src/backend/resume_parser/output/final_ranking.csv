@@ -1,7 +1,7 @@
-candidate_name,score
-Meena Roy,94
-Balaji Vijayan,87
-Rahul Nair,66
-Vikram Mehta,48
-Ayesha Singh,39
-Sarah Thomas,31
+candidate_name,role,score
+Meena Roy,Cloud Architect,94
+Balaji Vijayan,Application Developer,87
+Rahul Nair,DevOps Engineer,66
+Vikram Mehta,Backend Engineer,48
+Ayesha Singh,Machine Learning Engineer,39
+Sarah Thomas,Data Analyst,31

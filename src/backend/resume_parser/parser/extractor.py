@@ -1,4 +1,5 @@
 import json
+import re
 from dataclasses import dataclass
 from typing import Optional, List, Dict
 
@@ -26,6 +27,7 @@ class SkillEntry:
     awards: str
     interests: str
     references: str
+    role: Optional[str] = None  # ✅ NEW FIELD
 
 
 def extract_resume_json(
@@ -75,6 +77,14 @@ def extract_skill_entries(resume_json: dict) -> List[SkillEntry]:
     email = contact.get("email", "")
     summary = resume_json.get("professional_summary", "")
 
+    # ✅ Extract role from summary
+    role_match = re.search(
+        r"\bserves\s+\S+\s+as\s+(an?\s+)?(?P<role>[\w\s\-]+?)([.,]| with| and| where| who|$)",
+        summary,
+        re.IGNORECASE
+    )
+    role = role_match.group("role").strip() if role_match else "N/A"
+
     education_list = resume_json.get("education", [])
     highest_degree = max((e.get("degree", "") for e in education_list), key=len, default="") if education_list else ""
     graduation_year = max(
@@ -111,8 +121,30 @@ def extract_skill_entries(resume_json: dict) -> List[SkillEntry]:
             languages=languages,
             awards=awards,
             interests=interests,
-            references=references
+            references=references,
+            role=role
         )
         entries.append(entry)
+
+    # ✅ If no skills were extracted, still include one fallback row with role
+    if not entries:
+        entries.append(SkillEntry(
+            candidate_name=name,
+            email=email,
+            summary=summary,
+            skill="N/A",
+            skill_count=None,
+            skill_age=None,
+            skill_experience_years=None,
+            highest_degree=highest_degree,
+            graduation_year=graduation_year,
+            certifications=certifications,
+            projects=projects,
+            languages=languages,
+            awards=awards,
+            interests=interests,
+            references=references,
+            role=role
+        ))
 
     return entries

@@ -1,34 +1,27 @@
-import unittest
-from unittest.mock import patch, MagicMock
-from resume_parser.parser.reader import extract_text_from_docx
+import pytest
+from docx import Document
+from src.backend.resume_parser.parser.reader import extract_text_from_docx
 
-class TestExtractTextFromDocx(unittest.TestCase):
-    @patch('resume_parser.parser.reader.Document')
-    def test_extract_text_success(self, mock_document):
-        mock_doc = MagicMock()
-        mock_doc.paragraphs = [
-            MagicMock(text='Hello'),
-            MagicMock(text=''),
-            MagicMock(text='  '),
-            MagicMock(text='World')
-        ]
-        mock_document.return_value = mock_doc
-        result = extract_text_from_docx('fake.docx')
-        self.assertEqual(result, 'Hello\nWorld')
+def create_docx(path, paragraphs):
+    doc = Document()
+    for p in paragraphs:
+        doc.add_paragraph(p)
+    doc.save(path)
 
-    @patch('resume_parser.parser.reader.Document', side_effect=Exception('Some error'))
-    def test_extract_text_generic_error(self, mock_document):
-        with self.assertRaises(ValueError) as cm:
-            extract_text_from_docx('fake.docx')
-        self.assertIn('An error occurred while reading the .docx file', str(cm.exception))
+def test_extract_text_success(tmp_path):
+    # Create a .docx with two paragraphs
+    docx_path = tmp_path / "test.docx"
+    texts = ["Hello World", "  Second paragraph  "]
+    create_docx(str(docx_path), texts)
 
-    @patch('resume_parser.parser.reader.Document', side_effect=ImportError)
-    def test_extract_text_package_not_found(self, mock_document):
-        from docx.opc.exceptions import PackageNotFoundError
-        with patch('resume_parser.parser.reader.Document', side_effect=PackageNotFoundError):
-            with self.assertRaises(ValueError) as cm:
-                extract_text_from_docx('fake.docx')
-            self.assertIn('not a valid .docx file or is corrupted', str(cm.exception))
+    extracted = extract_text_from_docx(str(docx_path))
+    # Leading/trailing whitespace should be stripped, empty lines removed
+    assert extracted == "Hello World\nSecond paragraph"
 
-if __name__ == '__main__':
-    unittest.main()
+def test_extract_text_invalid(tmp_path):
+    # Create a fake (non-docx) file
+    fake = tmp_path / "not_a_docx.docx"
+    fake.write_text("I'm not a docx")
+    with pytest.raises(ValueError) as exc:
+        extract_text_from_docx(str(fake))
+    assert "not a valid .docx file" in str(exc.value)

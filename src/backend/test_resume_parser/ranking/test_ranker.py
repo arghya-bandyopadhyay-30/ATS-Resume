@@ -42,9 +42,8 @@ def test_rank_candidates_writes_csv(tmp_path, monkeypatch):
         assert header == ["candidate_name", "score"]
 
         rows = list(reader)
-        # A: 1.0*0.6 + 0*0.4 = 0.6
-        # B: 0.5*0.6 + 0.5*0.4 = 0.5
+
         assert rows == [
-            ["A", "0.6"],
-            ["B", "0.5"]
+            ["A", "60"],
+            ["B", "50"]
         ]

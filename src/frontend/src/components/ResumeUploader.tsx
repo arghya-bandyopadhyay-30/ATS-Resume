@@ -15,7 +15,6 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSubmit }) => {
   return (
     <section className="w-full bg-white py-10 border-t border-b border-gray-100">
       <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-2xl font-semibold mb-4">Paste your resumes below</h2>
         <form className="flex items-center space-x-4" onSubmit={handleSubmit}>
           <input
             className="flex-1 p-4 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"

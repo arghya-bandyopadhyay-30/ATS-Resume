@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { ResumeUploader } from './components/ResumeUploader';
 import { CandidateList } from './components/CandidateList';
 import { Footer } from './components/Footer';
 
-const initialCandidates = [
-  { name: 'Candidate A', title: 'Software Engineer', score: 85},
-  { name: 'Candidate B', title: 'Data Analyst', score: 78},
-  { name: 'Candidate C', title: 'Web Developer', score: 90},
-  { name: 'Candidate D', title: 'Project Manager', score: 75},
-];
+interface Candidate {
+  candidate_name: string;
+  score: number;
+}
 
 export const App: React.FC = () => {
-  const [candidates, setCandidates] = useState(initialCandidates);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/rankings')
+      .then((res) => res.json())
+      .then((data) => {
+        setCandidates(data);
+      })
+      .catch((err) => console.error('Failed to fetch rankings:', err));
+  }, []);
 
   const handleResumeSubmit = (text: string) => {
-    // Placeholder: In a real app, process resumes and update candidates
-    // For now, just log the text
     console.log('Submitted resumes:', text);
+    // Optional: re-trigger fetch after processing resumes
+    // fetchCandidates();
   };
 
   return (
@@ -25,7 +32,10 @@ export const App: React.FC = () => {
       <Header />
       <main className="flex-grow">
         <ResumeUploader onSubmit={handleResumeSubmit} />
-        <CandidateList candidates={candidates} />
+        <CandidateList candidates={candidates.map(c => ({
+          name: c.candidate_name,
+          score: c.score
+        }))} />
       </main>
       <Footer />
     </div>

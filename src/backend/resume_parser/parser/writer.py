@@ -1,6 +1,7 @@
 import csv
-from .extractor import SkillEntry
 from typing import List
+
+from .extractor import SkillEntry
 
 
 def write_skill_entries_to_csv(skill_entries: List[SkillEntry], output_path: str):

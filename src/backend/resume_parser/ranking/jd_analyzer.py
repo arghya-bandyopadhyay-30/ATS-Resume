@@ -1,21 +1,15 @@
 import json
-import requests
-from typing import List, Dict
-from dataclasses import dataclass
 import re
+from typing import Dict
+
+import requests
+
+from src.backend.resume_parser.config_models import LLMConfig
+
 
 class JDAnalyzerError(Exception):
     """Custom exception for JD analyzer errors."""
     pass
-
-@dataclass
-class LLMConfig:
-    provider: str
-    model_name: str
-    endpoint: str
-    api_key: str
-    temperature: float = 0.0
-    max_tokens: int = 4096
 
 def _clean_json_response(response_text: str) -> str:
     """Clean the LLM response to extract valid JSON."""
@@ -40,47 +34,60 @@ def _parse_weights_response(response_text: str) -> Dict[str, float]:
         # no fallback to literal_eval—require valid JSON
         raise JDAnalyzerError(f"Invalid JSON response: {e}\nCleaned text: {cleaned}")
 
-    # support both list-of-objects and single-object formats
-    items = data if isinstance(data, list) else [data] if isinstance(data, dict) else None
-    if items is None:
+    # Handle both dictionary and list-of-objects formats
+    if isinstance(data, dict):
+        # Direct dictionary format: {"python": 0.25, "aws": 0.20, ...}
+        weights = {}
+        for key, value in data.items():
+            if isinstance(value, (int, float)):
+                weights[str(key).strip()] = float(value)
+            elif isinstance(value, str):
+                try:
+                    weights[str(key).strip()] = float(value.strip())
+                except ValueError:
+                    raise JDAnalyzerError(f"Cannot parse weight '{value}' for keyword '{key}'")
+            else:
+                raise JDAnalyzerError(f"Invalid weight type {type(value).__name__} for keyword '{key}'")
+    elif isinstance(data, list):
+        # List of objects format: [{"keyword": "python", "weight": 0.25}, ...]
+        weights = {}
+        for i, obj in enumerate(data):
+            if not isinstance(obj, dict):
+                raise JDAnalyzerError(f"Item {i} is not an object: {repr(obj)}")
+
+            # Find the keyword field (case-insensitive)
+            key_field = next(
+                (k for k in obj if k.strip().strip('"\'' ).lower() == 'keyword'),
+                None
+            )
+            if key_field is None:
+                raise JDAnalyzerError(f"Missing 'keyword' field in item {i}: keys={list(obj.keys())}")
+            raw_key = obj[key_field]
+            keyword = str(raw_key).strip()
+
+            # Find the weight field
+            wt_field = next(
+                (k for k in obj if k.strip().strip('"\'' ).lower() == 'weight'),
+                None
+            )
+            if wt_field is None:
+                raise JDAnalyzerError(f"Missing 'weight' field in item {i}: keys={list(obj.keys())}")
+            raw_wt = obj[wt_field]
+
+            # Allow numeric strings or numbers
+            if isinstance(raw_wt, str):
+                try:
+                    weight = float(raw_wt.strip())
+                except ValueError:
+                    raise JDAnalyzerError(f"Cannot parse weight '{raw_wt}' at item {i}")
+            elif isinstance(raw_wt, (int, float)):
+                weight = float(raw_wt)
+            else:
+                raise JDAnalyzerError(f"Invalid weight type {type(raw_wt).__name__} in item {i}")
+
+            weights[keyword] = weight
+    else:
         raise JDAnalyzerError(f"Unexpected JSON structure: {type(data).__name__}")
-
-    weights: Dict[str, float] = {}
-    for i, obj in enumerate(items):
-        if not isinstance(obj, dict):
-            raise JDAnalyzerError(f"Item {i} is not an object: {repr(obj)}")
-
-        # Find the keyword field (case-insensitive)
-        key_field = next(
-            (k for k in obj if k.strip().strip('"\'' ).lower() == 'keyword'),
-            None
-        )
-        if key_field is None:
-            raise JDAnalyzerError(f"Missing 'keyword' field in item {i}: keys={list(obj.keys())}")
-        raw_key = obj[key_field]
-        keyword = str(raw_key).strip()
-
-        # Find the weight field
-        wt_field = next(
-            (k for k in obj if k.strip().strip('"\'' ).lower() == 'weight'),
-            None
-        )
-        if wt_field is None:
-            raise JDAnalyzerError(f"Missing 'weight' field in item {i}: keys={list(obj.keys())}")
-        raw_wt = obj[wt_field]
-
-        # Allow numeric strings or numbers
-        if isinstance(raw_wt, str):
-            try:
-                weight = float(raw_wt.strip())
-            except ValueError:
-                raise JDAnalyzerError(f"Cannot parse weight '{raw_wt}' at item {i}")
-        elif isinstance(raw_wt, (int, float)):
-            weight = float(raw_wt)
-        else:
-            raise JDAnalyzerError(f"Invalid weight type {type(raw_wt).__name__} in item {i}")
-
-        weights[keyword] = weight
 
     total = sum(weights.values())
     if total <= 0:
@@ -96,7 +103,6 @@ def _parse_weights_response(response_text: str) -> Dict[str, float]:
 
 def generate_weights_from_jd(
     jd_text: str,
-    keywords: List[str],
     prompt_path: str,
     llm_config: LLMConfig
 ) -> Dict[str, float]:
@@ -109,10 +115,8 @@ def generate_weights_from_jd(
     except FileNotFoundError:
         raise JDAnalyzerError(f"Prompt not found at {prompt_path}")
 
-    prompt = prompt_template.format(
-        JOB_DESCRIPTION=jd_text,
-        KEYWORDS=', '.join(keywords)
-    )
+    # Use a safer string formatting approach
+    prompt = prompt_template.replace('{JOB_DESCRIPTION}', jd_text)
 
     headers = {
         "Authorization": f"Bearer {llm_config.api_key}",

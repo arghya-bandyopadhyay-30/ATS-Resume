@@ -1,29 +1,24 @@
 You are a technical recruiter assistant.
 
-Given the following inputs:
+Given the following Job Description:
 
-**Job Description:**
 {JOB_DESCRIPTION}
 
-**Keywords to Evaluate:**
-{KEYWORDS}
+Your task is to:
+1. Identify the most important technical and soft skill keywords mentioned in the job description.
+2. Assign a weight between 0 and 1 to each keyword based on its importance.
+3. Ensure the total sum of weights equals 1.0.
+4. Output a JSON dictionary where keys are the extracted keywords and values are their weights.
 
-**Your Task:**
+Output must be a valid JSON dictionary like:
+{
+  "python": 0.25,
+  "aws": 0.20,
+  "docker": 0.15,
+  "kubernetes": 0.15,
+  "terraform": 0.10,
+  "airflow": 0.05,
+  "communication": 0.10
+}
 
-1. Assign a weight between 0 and 1 to each keyword based on its relevance in the job description.
-2. The weights should be proportional to each keyword's importance.
-3. Use only the keywords as provided—do not invent or modify them.
-4. Return ONLY the raw JSON array (no backticks, no extra text).
-
-**Weight Distribution Guidelines:**
-- Most important keywords should get higher weights (closer to 1.0)
-- Less important keywords should get lower weights (closer to 0.0)
-- Weights will be automatically normalized to sum to 1.0
-- Try to make weights proportional to importance before normalization
-
-Example Output Format:
-[
-  {{ "keyword": "Machine Learning", "weight": 0.8 }},
-  {{ "keyword": "Cloud Computing", "weight": 0.6 }},
-  {{ "keyword": "Data Science", "weight": 0.4 }}
-]
+Only return the JSON. No explanations or markdown formatting.

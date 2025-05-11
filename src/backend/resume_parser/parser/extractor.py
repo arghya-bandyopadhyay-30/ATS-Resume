@@ -1,7 +1,8 @@
 import json
-import requests
 from dataclasses import dataclass
 from typing import Optional, List, Dict
+
+import requests
 
 
 class GroqAPIError(Exception):

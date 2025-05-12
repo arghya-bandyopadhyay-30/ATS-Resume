@@ -1,7 +1,7 @@
 export const ReminderSender: React.FC = () => {
     return (
         <div>
-            <h1>Reminder Sender</h1>
+            <h1>Coming Soon...</h1>
         </div>
     );
 };

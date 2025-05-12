@@ -71,7 +71,7 @@ export const ResumeRanker: React.FC = () => {
         <div className="max-w-5xl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold text-primary">What would you like to do today?</h1>
           <p className="mt-2 text-secondary">
-            ASAP – AST is your intelligent AI assistant that helps you manage skill fitment.
+            ASAP is your intelligent AI assistant that helps you manage skill fitment.
           </p>
         </div>
       </section>

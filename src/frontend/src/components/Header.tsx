@@ -1,4 +1,3 @@
-// components/Header.tsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../index.css';
@@ -10,7 +9,7 @@ export const Header: React.FC = () => (
       <div className="flex items-center">
         <img src={twLogo} alt="Thoughtworks" className="h-8 w-auto mr-3" />
         <span className="mx-2 text-white">|</span>
-        <span className="text-white font-semibold text-lg">ASAP - AST</span>
+        <span className="text-white font-semibold text-lg">ASAP</span>
       </div>
       <div className="flex space-x-4">
         <NavLink
@@ -23,18 +22,9 @@ export const Header: React.FC = () => (
         >
           Home
         </NavLink>
+
         <NavLink
-          to="/reminder"
-          className={({ isActive }) =>
-            `text-sm text-white px-3 py-1 rounded-md hover:bg-sapphire ${
-              isActive ? 'bg-sapphire' : ''
-            }`
-          }
-        >
-          Resume Update Notifier
-        </NavLink>
-        <NavLink
-          to="/rank"
+          to="/staffing-assistant"
           className={({ isActive }) =>
             `text-sm text-white px-3 py-1 rounded-md hover:bg-sapphire ${
               isActive ? 'bg-sapphire' : ''
@@ -42,6 +32,17 @@ export const Header: React.FC = () => (
           }
         >
           Staffing Assistant
+        </NavLink>
+
+        <NavLink
+          to="/resume-update-notifier"
+          className={({ isActive }) =>
+            `text-sm text-white px-3 py-1 rounded-md hover:bg-sapphire ${
+              isActive ? 'bg-sapphire' : ''
+            }`
+          }
+        >
+          Resume Update Notifier
         </NavLink>
       </div>
     </div>

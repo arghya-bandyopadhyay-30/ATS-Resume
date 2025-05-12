@@ -13,8 +13,8 @@ export const App: React.FC = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/rank" element={<ResumeRanker />} />
-            <Route path="/reminder" element={<ReminderSender />} />
+            <Route path="/staffing-assistant" element={<ResumeRanker />} />
+            <Route path="/resume-update-notifier" element={<ReminderSender />} />
           </Routes>
         </main>
         <Footer />

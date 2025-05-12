@@ -3,6 +3,7 @@
 
 # Environment variable files
 .env.*
+**/package-lock.json
 
 # Output and log files
 *.log

@@ -38,7 +38,7 @@ class JobDescription(BaseModel):
 
 @app.get("/rankings")
 async def get_rankings():
-    csv_path = Path("resume_parser/output/final_ranking.csv")
+    csv_path = Path(__file__).parent / "resume_parser/output/final_ranking.csv"
     if not csv_path.exists():
         return []
 
@@ -68,7 +68,7 @@ async def analyze_jd(jd: JobDescription):
 
         # Step 1: Ensure resumes have been processed already
         try:
-            process_resumes(skip_jd_analysis=True)
+            process_resumes(skip_jd_analysis=False)
         except Exception as e:
             print(f"Error processing resumes: {e}")
             raise HTTPException(

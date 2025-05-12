@@ -1,0 +1,113 @@
+{
+  "personal_information": {
+    "full_name": "Ayesha Singh",
+    "contact": {
+      "phone": null,
+      "email": null,
+      "location": null,
+      "linkedin_github_portfolio": null
+    },
+    "availability_or_work_authorization": null
+  },
+  "professional_summary": "Ayesha serves Thoughtworks as a Machine Learning Engineer with five years of experience in building, deploying, and maintaining ML pipelines for personalization, search, and fraud detection systems in e-commerce.",
+  "skills": {
+    "programming_languages": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 5
+    },
+    "frameworks_tools": {
+      "count": 4,
+      "age": 0,
+      "experience_years": 5
+    },
+    "databases": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 5
+    },
+    "cloud_platforms": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 5
+    },
+    "methodologies": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 5
+    }
+  },
+  "work_experience": [
+    {
+      "job_title": "ml engineer",
+      "company": "Thoughtworks",
+      "location": null,
+      "start_date": "Jan 2023",
+      "end_date": "Present",
+      "responsibilities": [
+        "Built and deployed a collaborative filtering model to recommend products based on customer behavior and metadata.",
+        "Worked on model retraining automation."
+      ],
+      "technologies_used": [
+        "Python",
+        "TensorFlow",
+        "Airflow",
+        "MLflow",
+        "AWS SageMaker"
+      ]
+    },
+    {
+      "job_title": "ml engineer",
+      "company": "BuyFast",
+      "location": null,
+      "start_date": "Jul 2019",
+      "end_date": "Dec 2022",
+      "responsibilities": [],
+      "technologies_used": [
+        "Python",
+        "Kafka",
+        "Spark",
+        "XGBoost",
+        "GCP"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master’s in Computer Science",
+      "institution": "IIIT Hyderabad",
+      "start_date": null,
+      "end_date": "2018",
+      "field_of_study": "Computer Science"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "TensorFlow Developer Certificate",
+      "issuing_organization": null,
+      "issue_date": "2021",
+      "expiry_date": null
+    }
+  ],
+  "projects": [
+    {
+      "title": "Product Recommendation System for E-commerce Platform",
+      "description": null,
+      "technologies_used": [
+        "Python",
+        "TensorFlow",
+        "Airflow",
+        "MLflow",
+        "AWS SageMaker"
+      ],
+      "role": null,
+      "start_date": "Jan 2023",
+      "end_date": "Present",
+      "link": null
+    }
+  ],
+  "languages": {},
+  "awards": [],
+  "interests": [],
+  "references": []
+}

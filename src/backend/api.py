@@ -1,28 +1,28 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 import csv
-from pathlib import Path
-import uvicorn
+import json
 import os
 import sys
-import json
-import yaml
-from pydantic import BaseModel
-from typing import Dict, List
+from pathlib import Path
 from shutil import rmtree
 
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+from src.backend.email_sender.api import email_controller
 from src.backend.resume_parser.config_loader import load_config
 
 # Add the project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.backend.resume_parser.config_models import ResumeParserConfig, LLMConfig
 from src.backend.resume_parser.main import main as process_resumes
 from src.backend.resume_parser.ranking.jd_utils import analyze_jd_text
 from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
 from src.backend.resume_parser.ranking.ranker import rank_candidates
 
 app = FastAPI()
+app.include_router(email_controller.router)
 
 # Enable CORS for all origins
 app.add_middleware(

@@ -31,7 +31,7 @@ export const Header: React.FC = () => (
             }`
           }
         >
-          Reminder Sender
+          Resume Update Notifier
         </NavLink>
         <NavLink
           to="/rank"
@@ -41,7 +41,7 @@ export const Header: React.FC = () => (
             }`
           }
         >
-          Resume Ranker
+          Staffing Assistant
         </NavLink>
       </div>
     </div>

@@ -1,3 +1,24 @@
+# Email Configuration
+SENDER_EMAIL=your_actual_email@gmail.com
+SENDER_PASSWORD=your_actual_app_password
+EMAIL_TEMPLATE="Dear Thoughtworker,
+
+We noticed that you haven't updated your resume on the Jigsaw portal since {lastUploadDate}. Keeping your resume up-to-date helps us better match your skills with the right opportunities and ensures you're visible for relevant roles and growth paths.
+
+Please take a moment to upload your latest resume by visiting the Jigsaw portal.
+
+If you’ve recently updated your resume elsewhere, kindly ensure it is also reflected in the Jigsaw system.
+
+Thank you for your attention to this.
+
+Best regards,
+Talent Acquisition Team"
+
+# SMTP Configuration (optional, defaults to Gmail)
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+
+# OpenAI Configuration
 GROQ_API_KEY=your-actual-api-key
 GROQ_ENDPOINT=https://api.groq.com/openai/v1/chat/completions
 GROQ_MODEL_NAME=gemma2-9b-it

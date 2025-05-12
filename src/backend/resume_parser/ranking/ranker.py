@@ -35,21 +35,21 @@ def rank_candidates():
             profile.get(skill, 0.0) * weight
             for skill, weight in jd_weights.items()
         )
-        # turn 0–1 into 0–100
         percent = round(raw * 100)
         ranked_candidates.append((name, percent))
 
     # Sort by descending score
     ranked_candidates.sort(key=lambda x: x[1], reverse=True)
     
-    # Write to CSV
+    # Write to CSV with rank
     output_path = os.path.join(base_dir, 'output', 'final_ranking.csv')
     with open(output_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=['candidate_name', 'role', 'score', 'recommendation_label'])
+        writer = csv.DictWriter(f, fieldnames=['rank', 'candidate_name', 'role', 'score', 'recommendation_label'])
         writer.writeheader()
-        for name, score in ranked_candidates:
+        for rank, (name, score) in enumerate(ranked_candidates, start=1):
             matching_profile = next((p for p in profiles if p['name'] == name), {})
             writer.writerow({
+                'rank': rank,
                 'candidate_name': name,
                 'role': matching_profile.get('role', 'Employer'),
                 'score': score,
@@ -58,4 +58,3 @@ def rank_candidates():
 
 if __name__ == '__main__':
     rank_candidates()
-

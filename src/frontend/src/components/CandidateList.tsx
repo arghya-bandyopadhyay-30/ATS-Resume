@@ -8,6 +8,7 @@ export interface Candidate {
   title: string;
   score: number;
   recommendation_label?: string;
+  rank: number;
 }
 
 interface CandidateListProps {
@@ -32,12 +33,13 @@ export const CandidateList: React.FC<CandidateListProps> = ({ candidates }) => (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {candidates.map(candidate => (
           <CandidateCard
-            key={candidate.name}
-            name={candidate.name}
-            title={candidate.title}
-            score={candidate.score}
-            recommendation_label={candidate.recommendation_label}
-          />
+          key={candidate.name}
+          rank={candidate.rank}
+          name={candidate.name}
+          title={candidate.title}
+          score={candidate.score}
+          recommendation_label={candidate.recommendation_label}
+        />
         ))}
       </div>
     </div>

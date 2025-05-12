@@ -1,0 +1,100 @@
+{
+  "personal_information": {
+    "full_name": "Sarah Thomas",
+    "contact": {
+      "phone": null,
+      "email": null,
+      "location": null,
+      "linkedin_github_portfolio": null
+    },
+    "availability_or_work_authorization": null
+  },
+  "professional_summary": "Sarah serves Thoughtworks as a Data Analyst with three years of experience in designing dashboards, data pipelines, and statistical models to improve business decision-making. She specializes in SQL, Python, and BI tools, and has worked across diverse datasets in e-commerce and retail environments.",
+  "skills": {
+    "programming_languages": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 3
+    },
+    "frameworks_tools": {
+      "count": 5,
+      "age": 0,
+      "experience_years": 3
+    },
+    "databases": {
+      "count": 2,
+      "age": 0,
+      "experience_years": 3
+    },
+    "cloud_platforms": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 2
+    },
+    "methodologies": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 2
+    }
+  },
+  "work_experience": [
+    {
+      "job_title": "Data Analyst",
+      "company": "Thoughtworks",
+      "location": null,
+      "start_date": "April 2023",
+      "end_date": "Present",
+      "responsibilities": [
+        "Improved inventory forecasting using historical sales and seasonality data.",
+        "Developed regression-based models and Power BI dashboards to assist in restocking decisions."
+      ],
+      "technologies_used": [
+        "Python",
+        "SQL",
+        "Power BI",
+        "Pandas",
+        "Scikit-learn"
+      ]
+    },
+    {
+      "job_title": "Data Analyst",
+      "company": "ABC E-commerce",
+      "location": null,
+      "start_date": "May 2021",
+      "end_date": "Mar 2023",
+      "responsibilities": [
+        "Worked on customer segmentation, purchase pattern analysis, and A/B testing.",
+        "Built data pipelines using Airflow and developed automated reporting using Tableau."
+      ],
+      "technologies_used": [
+        "Python",
+        "Tableau",
+        "SQL",
+        "Airflow",
+        "AWS Redshift"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Technology",
+      "institution": "University of Mumbai",
+      "start_date": null,
+      "end_date": "2020",
+      "field_of_study": "Information Systems"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Google Data Analytics Certificate",
+      "issuing_organization": "Google",
+      "issue_date": "2022",
+      "expiry_date": null
+    }
+  ],
+  "projects": [],
+  "languages": {},
+  "awards": [],
+  "interests": [],
+  "references": []
+}

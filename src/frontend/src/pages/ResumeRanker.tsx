@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ResumeUploader } from '../components/ResumeUploader';
 import { CandidateList } from '../components/CandidateList';
 
 interface BackendCandidate {
+  rank: number;
   candidate_name: string;
   role: string;
   score: number;
@@ -26,19 +27,16 @@ export const ResumeRanker: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const resetOutputAndFetch = async () => {
-      try {
-        await fetch('http://localhost:8000/reset-output', { method: 'POST' });
-        await fetchRankings();
-      } catch (err) {
-        console.error('Failed to reset output or fetch rankings:', err);
-        setError('Failed to reset data. Please try again.');
-      }
-    };
-
-    resetOutputAndFetch();
-  }, []);
+  const handleReset = async () => {
+    try {
+      await fetch('http://localhost:8000/reset-output', { method: 'POST' });
+      setCandidates([]);
+      setError(null);
+    } catch (err) {
+      console.error('Failed to reset output:', err);
+      setError('Failed to reset data. Please try again.');
+    }
+  };
 
   const handleResumeSubmit = async (text: string) => {
     if (!text.trim()) {
@@ -79,7 +77,11 @@ export const ResumeRanker: React.FC = () => {
       </section>
 
       <main className="flex-grow">
-        <ResumeUploader onSubmit={handleResumeSubmit} isLoading={isLoading} />
+        <ResumeUploader
+          onSubmit={handleResumeSubmit}
+          onReset={handleReset}
+          isLoading={isLoading}
+        />
 
         {error && (
           <div className="max-w-3xl mx-auto px-4 mt-4">
@@ -89,6 +91,7 @@ export const ResumeRanker: React.FC = () => {
 
         <CandidateList
           candidates={candidates.map(c => ({
+            rank: c.rank,
             name: c.candidate_name,
             title: c.role,
             score: c.score,

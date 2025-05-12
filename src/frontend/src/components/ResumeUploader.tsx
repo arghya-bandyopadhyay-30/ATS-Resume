@@ -3,15 +3,21 @@ import '../index.css';
 
 interface ResumeUploaderProps {
   onSubmit: (text: string) => void;
+  onReset: () => void;
   isLoading: boolean;
 }
 
-export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSubmit, isLoading }) => {
+export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSubmit, onReset, isLoading }) => {
   const [resumeText, setResumeText] = useState('');
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     onSubmit(resumeText);
+  };
+
+  const handleReset = () => {
+    setResumeText('');
+    onReset();
   };
 
   return (
@@ -26,15 +32,28 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSubmit, isLoad
             disabled={isLoading}
           />
 
-          <button
-            type="submit"
-            className={`btn-primary px-6 py-2 text-sm rounded transition-colors ${
-              isLoading ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={isLoading}
-          >
-            {isLoading ? 'Processing...' : 'Analyze Job Description'}
-          </button>
+          <div className="flex justify-end space-x-4">
+            <button
+              type="submit"
+              className={`bg-dark-blue text-white px-6 py-2 text-sm rounded transition-colors ${
+                isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-sapphire'
+              }`}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Processing...' : 'Search Candidates'}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleReset}
+              className={`bg-gray-500 text-white px-6 py-2 text-sm rounded transition-colors ${
+                isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-600'
+              }`}
+              disabled={isLoading}
+            >
+              Clear
+            </button>
+          </div>
         </form>
       </div>
     </section>

@@ -1,9 +1,9 @@
-// src/components/CandidateCard.tsx
 import React from 'react';
 import '../index.css';
 import silhouette from '../assets/user-icon.png';  // silhouette placeholder asset
 
 interface CandidateCardProps {
+  rank: number;
   name: string;
   title: string;
   score: number;
@@ -11,12 +11,12 @@ interface CandidateCardProps {
 }
 
 export const CandidateCard: React.FC<CandidateCardProps> = ({
+  rank,
   name,
   title,
   score,
   recommendation_label,
 }) => {
-  // Determine badge color based on score tiers
   const getBadgeStyle = () => {
     if (score >= 90) {
       return { backgroundColor: 'var(--color-jade-green)', color: '#ffffff' };
@@ -42,7 +42,9 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
 
       {/* Candidate details */}
       <div className="flex-1">
-        <h3 className="text-lg font-bold text-primary">{name}</h3>
+        <h3 className="text-lg font-bold text-primary">
+          #{rank} {name}
+        </h3>
         <p className="text-secondary">{title}</p>
         <p className="mt-2 font-semibold text-primary">Score: {score}</p>
         {recommendation_label && (

@@ -1,0 +1,363 @@
+{
+  "personal_information": {
+    "full_name": "Balaji Vijayan",
+    "contact": {
+      "phone": null,
+      "email": null,
+      "location": null,
+      "linkedin_github_portfolio": null
+    },
+    "availability_or_work_authorization": null
+  },
+  "professional_summary": "Balaji serves Thoughtworks as an Application Developer with fourteen years of experience in the creation of large-scale distributed object applications and the integration of disparate systems.  He is heavily involved in the Agile Community, consulting with companies on OO Design, patterns, testing techniques and development methodologies. His main area of recent expertise has been C#, .net.",
+  "skills": {
+    "programming_languages": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "c#": {
+      "count": 14,
+      "age": 0,
+      "experience_years": 14
+    },
+    "visual_basic": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "xml": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "xsl": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "pl_sql": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    ".net_specific_competencies": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "ado.net": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "asp.net": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    ".net_web_services": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    ".net_remoting": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    ".net_core": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "distributed_computing": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "xml_web_services": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "dcom_and_com_com_plus": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "grpc": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "wcf": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "active_mq": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "apache": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "databases": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "ms_sql_server": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "oracle": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "tools": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "visual_studio.net": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "visio": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "xunit": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "specflow": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "chef": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "jenkins": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "powershell": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "octopus": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "domains": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "insurance": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "healthcare": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "retail": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "life_science": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "methodologies": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "scrum": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    },
+    "waterfall": {
+      "count": 1,
+      "age": 0,
+      "experience_years": 14
+    }
+  },
+  "work_experience": [
+    {
+      "job_title": "Lead Consultant - Developer",
+      "company": "Thoughtworks",
+      "location": null,
+      "start_date": "Apr 2022",
+      "end_date": null,
+      "responsibilities": [
+        null
+      ],
+      "technologies_used": []
+    },
+    {
+      "job_title": "Technical Lead/ Sr Developer/DevOps Engineer/Digital Online",
+      "company": "Eurofins IT Solutions",
+      "location": "Bangalore",
+      "start_date": "Jun 2016",
+      "end_date": "March 2022",
+      "responsibilities": [
+        "Leading the development team on Results 2.0 initiative with .net 5.0.",
+        "Designed and developed reporting modules of an eCommerce application, which includes Customizable reports, processing results from labs integrating with enterprise service APIs with .net5, EF Core, SQL Server 2019.",
+        "Application performance analysis and optimization of backend modules.",
+        "Laid out integration testing using PlayWright and Specflow and Docker images & containers.",
+        "Established CI/CD with Azure pipelines using Cake/ Powershell scripts integrating with Octopus.",
+        "Lead and developed Pesticide Assessment module in Legacy application."
+      ],
+      "technologies_used": [
+        "C#",
+        ".NET",
+        "gRPC",
+        "Angular",
+        "ActiveMQ",
+        "SQL Server",
+        "Docker",
+        "Jenkins",
+        "Chef",
+        "Octopus",
+        "Cake"
+      ]
+    },
+    {
+      "job_title": "Senior Developer/Scrum Master/ eLIMS Milk",
+      "company": "Eurofins IT Solutions",
+      "location": null,
+      "start_date": "July 2013",
+      "end_date": "Jun 2016",
+      "responsibilities": [
+        "Developed Instrument integration using SSIS for ETL.",
+        "Designed and developed Automatic batching module for LIMS processing.",
+        "Developed multiple front-end desktop modules for LIMS for Milk testing using WPF.",
+        "Implemented service layer APIs for M2M ordering modules"
+      ],
+      "technologies_used": [
+        "C#",
+        "WPF",
+        "MVVM",
+        "SQL Server",
+        "SSIS"
+      ]
+    },
+    {
+      "job_title": "Sr Developer",
+      "company": "Cognizant",
+      "location": "Chennai/London/Bangalore",
+      "start_date": "Dec 2012",
+      "end_date": "July 2013",
+      "responsibilities": [
+        "Create new time tracking component for the requests to 3rd party providers.",
+        "Create new OptOut component for Client Notification WCF Service.",
+        "Create high level and low-level design artifacts."
+      ],
+      "technologies_used": [
+        "C#",
+        "WCF",
+        "Nunit",
+        "SQL Server"
+      ]
+    },
+    {
+      "job_title": "Sr Developer",
+      "company": "Cognizant",
+      "location": null,
+      "start_date": "May 2009",
+      "end_date": "Dec 2012",
+      "responsibilities": [
+        "Create high level and low-level design artifacts.",
+        "Developed Order management screens.",
+        "Developed Windows services for Order Processing.",
+        "Track the Process artifacts of the team using C2.0.",
+        "Undergo TCG and DAG audits.",
+        "SAP integration with merchandise systems for leading Retail client.",
+        "Act as an SME - Provide application expertise for end-to-end flow across systems.",
+        "Design and develop automated reporting of Interface failures.",
+        "Create Techno-functional document for business users to address the issues."
+      ],
+      "technologies_used": [
+        "C#",
+        "ASP .net",
+        "MVC",
+        "WebSphere MQ",
+        "Oracle"
+      ]
+    },
+    {
+      "job_title": "Developer",
+      "company": null,
+      "location": "Healthcare",
+      "start_date": "Apr 2008",
+      "end_date": "May 2009",
+      "responsibilities": [
+        "Business process integration for a leading Clearing house customer.",
+        "Develop the Alerts Search/Add-Edit Screen.",
+        "Develop the E-Mail Template Screen."
+      ],
+      "technologies_used": [
+        "C#",
+        "ASP .net",
+        "SQL Server",
+        "Symphonia - EDI"
+      ]
+    },
+    {
+      "job_title": "Developer",
+      "company": null,
+      "location": "Insurance",
+      "start_date": "Dec 2007",
+      "end_date": "Apr 2007",
+      "responsibilities": [
+        "Add the lookup screen for rules set.",
+        "Create Technical artifacts."
+      ],
+      "technologies_used": [
+        "VB.net",
+        "ASP .net",
+        "SQL Server"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Engineering",
+      "institution": "Govt. College of Engineering, Anna University",
+      "start_date": null,
+      "end_date": null,
+      "field_of_study": "Electrical & Electronics Engineering"
+    }
+  ],
+  "certifications": [],
+  "projects": [],
+  "languages": {},
+  "awards": [],
+  "interests": [],
+  "references": []
+}

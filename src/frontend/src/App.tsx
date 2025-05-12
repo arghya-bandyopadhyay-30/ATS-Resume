@@ -28,8 +28,19 @@ export const App: React.FC = () => {
     }
   };
 
+  // Reset output folder and fetch rankings once on load
   useEffect(() => {
-    fetchRankings();
+    const resetOutputAndFetch = async () => {
+      try {
+        await fetch('http://localhost:8000/reset-output', { method: 'POST' });
+        await fetchRankings();  // Fetch after clearing the output folder
+      } catch (err) {
+        console.error('Failed to reset output or fetch rankings:', err);
+        setError('Failed to reset data. Please try again.');
+      }
+    };
+
+    resetOutputAndFetch();
   }, []);
 
   const handleResumeSubmit = async (text: string) => {
@@ -49,7 +60,7 @@ export const App: React.FC = () => {
       });
 
       if (!response.ok) throw new Error('Failed to analyze job description');
-      await fetchRankings();
+      await fetchRankings();  // Fetch updated results after JD analysis
     } catch (err) {
       console.error('Failed to submit job description:', err);
       setError('Failed to process job description. Please try again.');

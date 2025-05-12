@@ -9,6 +9,7 @@ import json
 import yaml
 from pydantic import BaseModel
 from typing import Dict, List
+from shutil import rmtree
 
 # Add the project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -141,6 +142,14 @@ async def analyze_jd(jd: JobDescription):
             status_code=500,
             detail=f"An unexpected error occurred: {str(e)}"
         )
+    
+@app.post("/reset-output")
+async def reset_output():
+    output_path = Path("resume_parser/output")
+    if output_path.exists() and output_path.is_dir():
+        rmtree(output_path)
+        output_path.mkdir(parents=True, exist_ok=True)
+    return {"message": "Output folder cleared"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

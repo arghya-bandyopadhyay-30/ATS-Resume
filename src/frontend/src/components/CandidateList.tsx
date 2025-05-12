@@ -19,9 +19,15 @@ export const CandidateList: React.FC<CandidateListProps> = ({ candidates }) => (
     <div className="max-w-5xl mx-auto px-4">
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-primary">Results</h2>
-        <p className="text-secondary mt-2">
-          Here are the candidates ranked based on the resumes you submitted.
-        </p>
+        {candidates.length === 0 ? (
+          <p className="text-secondary mt-2">
+            No candidates to show yet. Please analyze a job description to get started.
+          </p>
+        ) : (
+          <p className="text-secondary mt-2">
+            Here are the candidates ranked based on the resumes you submitted.
+          </p>
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {candidates.map(candidate => (

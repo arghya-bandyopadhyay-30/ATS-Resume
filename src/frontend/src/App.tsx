@@ -11,6 +11,8 @@ interface BackendCandidate {
   recommendation_label?: string;
 }
 
+var BASE_URL = window.origin+"/api"; //'http://localhost:8000'
+
 export const App: React.FC = () => {
   const [candidates, setCandidates] = useState<BackendCandidate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +20,7 @@ export const App: React.FC = () => {
 
   const fetchRankings = async () => {
     try {
-      const response = await fetch('http://localhost:8000/rankings');
+      const response = await fetch(BASE_URL+'/rankings');
       const data: BackendCandidate[] = await response.json();
       setCandidates(data);
       setError(null);
@@ -32,7 +34,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const resetOutputAndFetch = async () => {
       try {
-        await fetch('http://localhost:8000/reset-output', { method: 'POST' });
+        await fetch(BASE_URL+'/reset-output', { method: 'POST' });
         await fetchRankings();  // Fetch after clearing the output folder
       } catch (err) {
         console.error('Failed to reset output or fetch rankings:', err);
@@ -53,7 +55,7 @@ export const App: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/analyze-jd', {
+      const response = await fetch(BASE_URL+'/analyze-jd', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jd_text: text }),

@@ -1,4 +1,4 @@
-FROM python:3.13-alpine as builder
+FROM python:3.12 as builder
 
 USER root
 
@@ -8,11 +8,11 @@ WORKDIR /app
 # Install app dependencies
 RUN python -m pip install --upgrade pip
 COPY ./envs ./envs 
-RUN pip install --no-cache-dir -r ./envs/linux/requirements_web.txt
+RUN pip install --no-cache-dir -r ./envs/linux/requirements_backend.txt
 # Copy app source
 COPY . .
 
-EXPOSE 12000
+EXPOSE 8000
 
 #?   D E B U G   I M A G E
 FROM builder as debug
@@ -27,7 +27,6 @@ CMD ["sh", "-c", "python /tmp/debugpy --listen 0.0.0.0:5678  --wait-for-client -
 
 
 #!   P R O D U C T I O N   I M A G E
-# Need to implement load balancer [ WSGI / Apache Server / Gunicorn ] for  server to handle multiple request in production.
 FROM builder as prod
-#CMD gunicorn src.backend.web:app -k uvicorn.workers.UvicornWorker --workers $(($(nproc) * 2 + 1)) --bind 0.0.0.0:8000
-CMD gunicorn src.backend.web:app -k uvicorn.workers.UvicornWorker --workers 2 --bind 0.0.0.0:8000
+#CMD uvicorn src.backend.web:app -k uvicorn.workers.UvicornWorker --workers 2 --bind 0.0.0.0:8000
+CMD ["uvicorn", "src.backend.api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]

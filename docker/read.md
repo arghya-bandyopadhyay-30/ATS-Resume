@@ -1,5 +1,6 @@
 # GO TO PROJECT ROOT DIR
 >> docker-compose -f .\docker\docker-compose.yml up -d
+>> docker compose -f ./docker/docker-compose.yml up -d
 
 # Go to project root directory to stop containers
 >> docker-compose -f .\docker\docker-compose.yml down

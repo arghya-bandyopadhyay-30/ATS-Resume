@@ -113,17 +113,17 @@ yarn test
 ```
 src/
 ├── frontend/           # React frontend application
-│   ├── src/           # Source files
-│   ├── public/        # Static assets
-│   └── package.json   # Frontend dependencies
+│   ├── src/            # Source files
+│   ├── public/         # Static assets
+│   └── package.json    # Frontend dependencies
 │
-├── backend/           # Python backend application
-│   ├── api.py        # Main API endpoints
-│   ├── resume_parser/ # Resume parsing module
-│   ├── email_sender/  # Email notification system
-│   └── settings.py   # Configuration settings
+├── backend/            # Python backend application
+│   ├── api.py          # Main API endpoints
+│   ├── resume_parser/  # Resume parsing module
+│   ├── email_sender/   # Email notification system
+│   └── settings.py     # Configuration settings
 │
-└── utils/            # Shared utilities
+└── utils/              # Shared utilities
 ```
 
 ## Contributing

@@ -2,7 +2,7 @@
 .venv/
 
 # Environment variable files
-.env.*
+.env
 **/package-lock.json
 
 # Output and log files

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ResumeUploader } from '../components/ResumeUploader';
 import { CandidateList } from '../components/CandidateList';
+import { BASE_URL } from '../config';
 
 interface BackendCandidate {
   rank: number;
@@ -17,7 +18,7 @@ export const ResumeRanker: React.FC = () => {
 
   const fetchRankings = async () => {
     try {
-      const response = await fetch('http://localhost:8000/rankings');
+      const response = await fetch(`${BASE_URL}/rankings`);
       const data: BackendCandidate[] = await response.json();
       setCandidates(data);
       setError(null);
@@ -29,7 +30,7 @@ export const ResumeRanker: React.FC = () => {
 
   const handleReset = async () => {
     try {
-      await fetch('http://localhost:8000/reset-output', { method: 'POST' });
+      await fetch(`${BASE_URL}/reset-output`, { method: 'POST' });
       setCandidates([]);
       setError(null);
     } catch (err) {
@@ -48,7 +49,7 @@ export const ResumeRanker: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/analyze-jd', {
+      const response = await fetch(`${BASE_URL}/analyze-jd`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jd_text: text }),

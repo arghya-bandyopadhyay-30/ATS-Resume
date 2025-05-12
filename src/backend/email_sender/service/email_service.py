@@ -16,25 +16,19 @@ def send_email(
         smtp_server = os.getenv('SMTP_SERVER')
         smtp_port = os.getenv('SMTP_PORT')
 
-        # Create a multipart message
         message = MIMEMultipart()
         message["From"] = sender_email
         message["To"] = receiver_email
         message["Subject"] = subject
 
-        # Add body to email
         message.attach(MIMEText(body, "plain"))
 
-        # Create SMTP session
         with smtplib.SMTP(smtp_server, smtp_port) as server:
-            # Start TLS for security
             server.starttls()
             
-            # Login to the server
             if sender_email and sender_password:
                 server.login(sender_email, sender_password)
-            
-            # Send email
+
             server.send_message(message)
             
         return True

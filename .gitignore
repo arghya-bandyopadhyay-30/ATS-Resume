@@ -2,7 +2,6 @@
 .venv/
 
 # Environment variable files
-.env
 .env.*
 
 # Output and log files

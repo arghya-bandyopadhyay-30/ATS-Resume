@@ -1,0 +1,4 @@
+GROQ_API_KEY=your-actual-api-key
+GROQ_ENDPOINT=https://api.groq.com/openai/v1/chat/completions
+GROQ_MODEL_NAME=gemma2-9b-it
+GROQ_PROVIDER=groq

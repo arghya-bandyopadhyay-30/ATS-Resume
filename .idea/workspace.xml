@@ -6,15 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f1706986-0cae-4eb1-805a-a94bf1782a36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_extractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_reader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_writer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_analyzer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_ranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_ranker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_scorer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_scorer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/src/components/CandidateCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/src/components/CandidateCard.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,22 +30,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests in test_extractor.py.executor": "Run",
-    "Python tests.Python tests in test_jd_utils.py.executor": "Run",
-    "Python tests.Python tests in test_ranker.py.executor": "Run",
-    "Python tests.Python tests in test_reader.py.executor": "Run",
-    "Python tests.Python tests in test_scorer.py.executor": "Run",
-    "Python tests.Python tests in test_writer.py.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/arghyabanerjee/Desktop/ATS-ASAP-Code-Custodians",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in test_extractor.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_jd_utils.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_ranker.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_reader.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_scorer.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_writer.py.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/arghyabanerjee/Desktop/ATS-ASAP-Code-Custodians&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python tests.Python tests in test_writer.py">
     <configuration name="Python tests in test_extractor.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="ATS-ASAP-Code-Custodians" />
@@ -158,6 +149,9 @@
       <updated>1746959336519</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

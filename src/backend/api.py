@@ -11,6 +11,8 @@ from pydantic import BaseModel
 from typing import Dict, List
 from shutil import rmtree
 
+from src.backend.resume_parser.config_loader import load_config
+
 # Add the project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -19,25 +21,6 @@ from src.backend.resume_parser.main import main as process_resumes
 from src.backend.resume_parser.ranking.jd_utils import analyze_jd_text
 from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
 from src.backend.resume_parser.ranking.ranker import rank_candidates
-
-def load_config() -> ResumeParserConfig:
-    config_path = Path(__file__).parent / "resume_parser" / "config.yaml"
-    try:
-        with open(config_path, 'r') as f:
-            config_data = yaml.safe_load(f)
-            
-        llm_config = LLMConfig(**config_data['llm'])
-        return ResumeParserConfig(
-            data_folder=config_data['data_folder'],
-            resume_extension=config_data['resume_extension'],
-            llm=llm_config
-        )
-    except Exception as e:
-        print(f"Error loading config: {e}")
-        raise HTTPException(
-            status_code=500,
-            detail="Failed to load configuration"
-        )
 
 app = FastAPI()
 
@@ -80,7 +63,7 @@ async def get_rankings():
 async def analyze_jd(jd: JobDescription):
     try:
         base_dir = Path(__file__).parent / "resume_parser"
-        config = load_config()
+        config = load_config(config_path=str(base_dir / "config.yaml"))
 
         # Step 1: Ensure resumes have been processed already
         try:

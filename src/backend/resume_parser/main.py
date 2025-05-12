@@ -4,6 +4,7 @@ import os
 
 import yaml
 
+from src.backend.resume_parser.config_loader import load_config
 from src.backend.resume_parser.config_models import ResumeParserConfig, LLMConfig
 from src.backend.resume_parser.parser.extractor import extract_resume_json, extract_skill_entries
 from src.backend.resume_parser.parser.reader import extract_text_from_docx
@@ -11,25 +12,6 @@ from src.backend.resume_parser.parser.writer import write_skill_entries_to_csv
 from src.backend.resume_parser.ranking.jd_utils import analyze_jd_text
 from src.backend.resume_parser.ranking.scorer import build_candidate_profiles
 from src.backend.resume_parser.ranking.ranker import rank_candidates
-
-
-def load_config(config_path: str) -> ResumeParserConfig:
-    with open(config_path, 'r') as file:
-        config_dict = yaml.safe_load(file)
-
-    llm_cfg = config_dict['llm']
-    return ResumeParserConfig(
-        data_folder=config_dict['data_folder'],
-        resume_extension=config_dict['resume_extension'],
-        llm=LLMConfig(
-            provider=llm_cfg['provider'],
-            model_name=llm_cfg['model_name'],
-            endpoint=llm_cfg['endpoint'],
-            api_key=llm_cfg['api_key'] or os.getenv("GROQ_API_KEY"),
-            temperature=llm_cfg.get('temperature', 0.0),
-            max_tokens=llm_cfg.get('max_tokens', 4096)
-        )
-    )
 
 
 def _setup_output_directories(base_dir: str, parsed_json_dir: str, csv_output_path: str) -> None:

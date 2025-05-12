@@ -4,11 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1706986-0cae-4eb1-805a-a94bf1782a36" name="Changes" comment="" />
+    <list default="true" id="f1706986-0cae-4eb1-805a-a94bf1782a36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/resume_parser/ranking/ranker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_writer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_analyzer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_ranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_ranker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_scorer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_scorer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/components/CandidateCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/src/components/CandidateCard.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -21,15 +39,108 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/arghyabanerjee/Desktop/ATS-ASAP-Code-Custodians&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in test_extractor.py.executor": "Run",
+    "Python tests.Python tests in test_jd_utils.py.executor": "Run",
+    "Python tests.Python tests in test_ranker.py.executor": "Run",
+    "Python tests.Python tests in test_reader.py.executor": "Run",
+    "Python tests.Python tests in test_scorer.py.executor": "Run",
+    "Python tests.Python tests in test_writer.py.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/arghyabanerjee/Desktop/ATS-ASAP-Code-Custodians",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
+  <component name="RunManager" selected="Python tests.Python tests in test_writer.py">
+    <configuration name="Python tests in test_extractor.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ATS-ASAP-Code-Custodians" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backend/test_resume_parser/parser" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_extractor.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_jd_utils.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ATS-ASAP-Code-Custodians" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backend/test_resume_parser/ranking" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_jd_utils.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_reader.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ATS-ASAP-Code-Custodians" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backend/test_resume_parser/parser" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_reader.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_scorer.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ATS-ASAP-Code-Custodians" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backend/test_resume_parser/ranking" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/backend/test_resume_parser/ranking/test_scorer.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_writer.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ATS-ASAP-Code-Custodians" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backend/test_resume_parser/parser" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_writer.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests in test_writer.py" />
+        <item itemvalue="Python tests.Python tests in test_reader.py" />
+        <item itemvalue="Python tests.Python tests in test_extractor.py" />
+        <item itemvalue="Python tests.Python tests in test_jd_utils.py" />
+        <item itemvalue="Python tests.Python tests in test_scorer.py" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -47,5 +158,16 @@
       <updated>1746959336519</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backend/test_resume_parser/parser/test_extractor.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

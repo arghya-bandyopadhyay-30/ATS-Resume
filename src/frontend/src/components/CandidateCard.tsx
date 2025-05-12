@@ -20,7 +20,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
   const getBadgeStyle = () => {
     if (score >= 90) {
       return { backgroundColor: 'var(--color-jade-green)', color: '#ffffff' };
-    } else if (score >= 80) {
+    } else if (score >= 75) {
       return { backgroundColor: 'var(--color-sapphire)', color: '#ffffff' };
     } else if (score >= 60) {
       return { backgroundColor: 'var(--color-amethyst-purple)', color: '#ffffff' };

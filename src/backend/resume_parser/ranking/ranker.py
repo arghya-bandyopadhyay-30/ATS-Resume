@@ -6,7 +6,7 @@ def get_recommendation_label(score: int) -> str:
     """Get recommendation label based on candidate score."""
     if score >= 90:
         return "Highly Recommended"
-    elif score >= 80:
+    elif score >= 75:
         return "Well-Suited for the Role"
     elif score >= 60:
         return "Good Potential"

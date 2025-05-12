@@ -1,104 +1,87 @@
-import pytest
-import json
-from unittest.mock import patch, mock_open
-from src.backend.resume_parser.ranking.jd_analyzer import (
-    _clean_json_response,
-    _parse_weights_response,
-    generate_weights_from_jd,
-    JDAnalyzerError
-)
-import requests
+import unittest
+from unittest.mock import patch, mock_open, MagicMock
+from src.backend.resume_parser.ranking.jd_analyzer import generate_weights_from_jd, JDAnalyzerError
+from src.backend.resume_parser.config_models import LLMConfig
 
-def test_clean_json_response():
-    # Test with code fence
-    input_text = '```json\n{"key": "value"}\n```'
-    assert _clean_json_response(input_text) == '{"key": "value"}'
+class TestJDAnalyzer(unittest.TestCase):
 
-    # Test with quotes
-    input_text = '"{"key": "value"}"'
-    assert _clean_json_response(input_text) == '{"key": "value"}'
+    def setUp(self):
+        self.prompt_template = "Analyze JD: {JOB_DESCRIPTION}\nSkills: {SKILLS_LIST}"
+        self.jd_text = "We are looking for a Python and ML engineer."
+        self.skills_list = "Python,Machine Learning,Data Science"
 
-    # Test with extra text
-    input_text = 'Here is the JSON:\n```json\n{"key": "value"}\n```\nEnd of response'
-    assert _clean_json_response(input_text) == '{"key": "value"}'
-
-def test_parse_weights_response_list_format():
-    # Test list format
-    input_json = '''
-    [
-        {"keyword": "x", "weight": "0.2"},
-        {"keyword": "y", "weight": 0.8}
-    ]
-    '''
-    result = _parse_weights_response(input_json)
-    assert result == {"x": 0.2, "y": 0.8}
-
-def test_parse_weights_response_dict_format():
-    # Test dictionary format
-    input_json = '{"a": 1, "b": 2}'
-    result = _parse_weights_response(input_json)
-    # Should normalize to sum to 1.0
-    assert result == {"a": 1/3, "b": 2/3}
-
-def test_parse_weights_response_invalid_json():
-    with pytest.raises(JDAnalyzerError):
-        _parse_weights_response('invalid json')
-
-def test_parse_weights_response_invalid_structure():
-    with pytest.raises(JDAnalyzerError):
-        _parse_weights_response('[]')  # Empty list
-
-def test_parse_weights_response_invalid_weight():
-    with pytest.raises(JDAnalyzerError):
-        _parse_weights_response('[{"keyword": "x", "weight": "invalid"}]')
-
-@patch('builtins.open', new_callable=mock_open, read_data='{JOB_DESCRIPTION}')
-@patch('requests.post')
-def test_generate_weights_from_jd(mock_post, mock_file):
-    # Mock the API response
-    mock_response = {
-        "choices": [{
-            "message": {
-                "content": '[{"keyword": "python", "weight": 0.6}, {"keyword": "aws", "weight": 0.4}]'
-            }
-        }]
-    }
-    mock_post.return_value.json.return_value = mock_response
-    mock_post.return_value.raise_for_status = lambda: None
-
-    # Test the function
-    result = generate_weights_from_jd(
-        jd_text="Test JD",
-        prompt_path="dummy_path",
-        llm_config=type('Config', (), {
-            'api_key': 'dummy_key',
-            'model_name': 'gpt-3.5-turbo',
-            'temperature': 0.7,
-            'max_tokens': 100,
-            'endpoint': 'https://api.openai.com/v1/chat/completions'
-        })
-    )
-
-    assert result == {"python": 0.6, "aws": 0.4}
-    mock_post.assert_called_once()
-
-@patch('builtins.open', new_callable=mock_open, read_data='{JOB_DESCRIPTION}')
-@patch('requests.post')
-def test_generate_weights_from_jd_api_error(mock_post, mock_file):
-    # Mock API error
-    mock_post.side_effect = requests.RequestException("API Error")
-
-    with pytest.raises(JDAnalyzerError) as exc_info:
-        generate_weights_from_jd(
-            jd_text="Test JD",
-            prompt_path="dummy_path",
-            llm_config=type('Config', (), {
-                'api_key': 'dummy_key',
-                'model_name': 'gpt-3.5-turbo',
-                'temperature': 0.7,
-                'max_tokens': 100,
-                'endpoint': 'https://api.openai.com/v1/chat/completions'
-            })
+        self.llm_config = LLMConfig(
+            provider="OpenAI",
+            model_name="gpt-3.5-turbo",
+            api_key="fake-api-key",
+            endpoint="https://fake-endpoint.com",
+            temperature=0.3,
+            max_tokens=500
         )
-    
-    assert "API request failed" in str(exc_info.value) 
+
+        self.mock_response_content = {
+            "choices": [{
+                "message": {
+                    "content": '{ "Python": 0.5, "Machine Learning": 0.3, "Data Science": 0.2 }'
+                }
+            }]
+        }
+
+    @patch("builtins.open", new_callable=mock_open, read_data="Analyze JD: {JOB_DESCRIPTION}\nSkills: {SKILLS_LIST}")
+    @patch("requests.post")
+    def test_generate_weights_success(self, mock_post, mock_file):
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = self.mock_response_content
+        mock_post.return_value = mock_resp
+
+        result = generate_weights_from_jd(
+            jd_text=self.jd_text,
+            prompt_path="fake_prompt_path.txt",
+            llm_config=self.llm_config,
+            skills_list=self.skills_list
+        )
+
+        expected = {
+            "Python": 0.5,
+            "Machine Learning": 0.3,
+            "Data Science": 0.2
+        }
+        self.assertEqual(result, expected)
+
+    @patch("builtins.open", side_effect=FileNotFoundError)
+    def test_prompt_file_not_found(self, mock_file):
+        with self.assertRaises(JDAnalyzerError) as ctx:
+            generate_weights_from_jd(
+                jd_text=self.jd_text,
+                prompt_path="missing.txt",
+                llm_config=self.llm_config,
+                skills_list=self.skills_list
+            )
+        self.assertIn("Prompt not found", str(ctx.exception))
+
+    @patch("builtins.open", new_callable=mock_open, read_data="Analyze JD: {JOB_DESCRIPTION}\nSkills: {SKILLS_LIST}")
+    @patch("requests.post")
+    def test_invalid_json_response(self, mock_post, mock_file):
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {
+            "choices": [{
+                "message": {
+                    "content": 'not a json'
+                }
+            }]
+        }
+        mock_post.return_value = mock_resp
+
+        with self.assertRaises(JDAnalyzerError) as ctx:
+            generate_weights_from_jd(
+                jd_text=self.jd_text,
+                prompt_path="fake_prompt_path.txt",
+                llm_config=self.llm_config,
+                skills_list=self.skills_list
+            )
+        self.assertIn("Invalid JSON response", str(ctx.exception))
+
+if __name__ == '__main__':
+    unittest.main()

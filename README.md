@@ -32,109 +32,154 @@ ATS-ASAP is an intelligent system designed to streamline the internal talent mat
 - Node.js (v16 or higher)
 - Python 3.8 or higher
 - pip (Python package manager)
-- npm or yarn
+- npm
 
-## Installation
+Here is the updated and clean version of your **Project Setup Guide**, now with the **step to create a `.venv`** added at the top:
 
-### Backend Setup
-1. Navigate to the backend directory:
+---
+
+# Project Setup Guide
+
+## 1. Create and Activate the Virtual Environment
+
+At the root of the project:
+
+```bash
+python3 -m venv .venv              # Create virtual environment
+```
+```bash
+source .venv/bin/activate          # For macOS/Linux
+````
+#### OR
+```bash
+.venv\Scripts\activate             # For Windows
+```
+
+---
+
+## 2. Configure Environment Variables
+
+At the root of the project:
+
+1. Copy the [environment template](env-template) file:
+
    ```bash
-   cd src/backend
+   cp env-template .env
    ```
 
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+2. Update the `.env` file with your credentials:
+
+   ```
+   SENDER_EMAIL=your_email@example.com
+   SENDER_PASSWORD=your_email_password
+   GROQ_API_KEY=your_groq_api_key
    ```
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+---
 
-### Frontend Setup
-1. Navigate to the frontend directory:
-   ```bash
-   cd src/frontend
-   ```
+## 3. Install Python Dependencies
 
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+Install all required Python packages:
 
-## Running the Application
+```bash
+pip install -r requirements.txt
+```
 
-### Start Backend Server
-1. Activate the virtual environment (if not already activated):
-   ```bash
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+---
 
-2. Start the backend server:
-   ```bash
-   run.sh
-   ```
-   The backend server will run on `http://localhost:5000`
+## 4. Start the Backend Server (Only)
 
-### Start Frontend Development Server
-1. In a new terminal, navigate to the frontend directory:
-   ```bash
-   cd src/frontend
-   ```
+To run the backend server independently:
 
-2. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-   The frontend will be available at `http://localhost:5173`
-
-## Testing
-### Backend Tests
 ```bash
 cd src/backend
-python -m pytest
+uvicorn api:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### Frontend Tests
+---
+
+## Full Application Setup (Frontend + Backend)
+
+### 1. Navigate to Frontend Directory
+
 ```bash
 cd src/frontend
-npm run test
-# or
-yarn test
 ```
+
+### 2. Install Node.js Dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the Full Development Server
+
+```bash
+npm run dev:all
+```
+
+This will start both the frontend and backend servers concurrently in development mode.
+
+---
+
+## Testing
+
+### Backend Tests
+
+To run backend tests for the resume parser:
+
+```bash
+python -m pytest src/backend/test_resume_parser -v
+```
+
+---
 
 ## Project Structure
+
 ```
-src/
-├── frontend/           # React frontend application
-│   ├── src/            # Source files
-│   ├── public/         # Static assets
-│   └── package.json    # Frontend dependencies
-│
-├── backend/            # Python backend application
-│   ├── api.py          # Main API endpoints
-│   ├── resume_parser/  # Resume parsing module
-│   ├── email_sender/   # Email notification system
-│   └── settings.py     # Configuration settings
-│
-└── utils/              # Shared utilities
+root/
+├── docker/                         # Docker setup files
+├── src/
+│   ├── backend/
+│   │   ├── email_sender/           # Email functionality
+│   │   ├── resume_parser/          # Resume parsing logic
+│   │   ├── test_email_sender/      # Tests for email sender
+│   │   ├── test_resume_parser/     # Tests for resume parser
+│   │   ├── api.py                  # API routing
+│   │   ├── settings.py             
+│   │   └── web.py                  
+│   └── frontend/
+│       ├── node_modules/           # Node dependencies
+│       ├── public/                 # Static assets (favicon, etc.)
+│       └── src/
+│           ├── assets/             # Images, fonts, etc.
+│           ├── components/         # React components
+│           ├── pages/              # Page-level components
+│           ├── App.tsx
+│           ├── config.ts
+│           ├── index.css
+│           ├── main.tsx
+│           └── vite-env.d.ts
 ```
+
+---
 
 ## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+
+1. Fork the repository.
+2. Create a new feature branch.
+3. Commit your changes with clear and meaningful messages.
+4. Push the changes to your forked repository.
+5. Open a Pull Request for review and merge.
+
+---
 
 ## License
-This project is proprietary and confidential.
+
+This project is proprietary and confidential. Unauthorized use or distribution is strictly prohibited.
+
+---
 
 ## Support
-For support and questions, please contact the development team.
+
+For support, issues, or feature requests, please contact the development team directly.

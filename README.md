@@ -84,9 +84,9 @@ At the root of the project:
 2. Update the `.env` file with your credentials:
 
    ```
-   SENDER_EMAIL=your_email@example.com
-   SENDER_PASSWORD=your_email_password
-   GROQ_API_KEY=your_groq_api_key
+   SENDER_EMAIL=your_email@example.com        # Replace with your sender email address (e.g., "christsomalina@gmail.com")
+   SENDER_PASSWORD=your_email_password        # Replace with your email's app-specific password (e.g., "mlmd eaxt pdco skgl")
+   GROQ_API_KEY=your_groq_api_key             # Get your API key from: https://console.groq.com/keys
    ```
 
 ---

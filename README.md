@@ -4,6 +4,15 @@
 
 ---
 
+## Testing
+Use the following for testing as we have used Mock data, we need to be specific with the format:
+
+- **Staffing Assistant:** [Job Description Sample](Testing%20Samples/Job%20Description%20Sample)
+
+- **Resume Update Notifier:** [Resume Upload Excel Sample.xlsx](Testing%20Samples/Resume%20Upload%20Excel%20Sample.xlsx)
+
+---
+
 ## Overview
 
 ATS-ASAP Code Custodians is an intelligent full-stack application designed for internal talent management. It streamlines the process of mapping candidate skillsets to open roles and ensures that resumes stay current through automated reminders.

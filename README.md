@@ -1,40 +1,54 @@
 # ATS-ASAP Code Custodians
 
-## Project Overview
-ATS-ASAP is an intelligent system designed to streamline the internal talent matching process. The application efficiently matches candidates with suitable skill sets to open job roles and ensures resume data remains current through automated reminders.
+**An internal system to match resumes to open roles and keep resume data updated.**
+
+---
+
+## Overview
+
+ATS-ASAP Code Custodians is an intelligent full-stack application designed for internal talent management. It streamlines the process of mapping candidate skillsets to open roles and ensures that resumes stay current through automated reminders.
 
 ### Key Features
-- Intelligent skill-to-role matching based on multiple criteria:
-  - Technology stack
-  - Years of experience
-- Automated resume maintenance:
-  - Proactive reminders for resume updates
-  - 6-month update cycle monitoring
-  - Resume parsing and skill extraction
-- Smart matching algorithm:
-  - Normalized skill descriptions
-  - Intelligent parsing of requirements
-  - Accurate candidate-role matching
+- **Skill-to-Role Matching**: Matches resumes based on tech stack and years of experience.
+- **Automated Resume Maintenance**: Sends reminders for updating resumes every 6 months.
+- **Resume Parsing & Skill Extraction**: Extracts and normalizes skills from uploaded resumes.
+- **Intelligent Matching Algorithm**: Normalizes candidate attributes for accurate matching to roles.
+
+---
 
 ## Tech Stack
+
 ### Frontend
 - React with TypeScript
-- Tailwind CSS for styling
-- Vite as build tool
+- Tailwind CSS
+- Vite
 
 ### Backend
-- Python-based API
-- Resume parsing module
-- Email notification system
-- Automated testing suite
+- Python
+- FastAPI + Uvicorn
+- Email Notification System
+- Resume Parsing Module
+- Testing with `pytest`
+
+---
 
 ## Prerequisites
-- Node.js (v16 or higher)
-- Python 3.8 or higher
-- pip (Python package manager)
-- npm
 
-Here is the updated and clean version of your **Project Setup Guide**, now with the **step to create a `.venv`** added at the top:
+Ensure the following are installed on your system:
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Python](https://www.python.org/) (3.8 or higher)
+- [npm](https://www.npmjs.com/)
+- [pip](https://pip.pypa.io/)
+
+---
+
+## Project Setup Guide
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-org/ats-asap-code-custodians.git
+cd ats-asap-code-custodians
+```
 
 ---
 

@@ -55,7 +55,7 @@ Ensure the following are installed on your system:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-org/ats-asap-code-custodians.git
+git clone https://github.com/arghya-bandyopadhyay-30/ATS-Resume.git
 cd ats-asap-code-custodians
 ```
 

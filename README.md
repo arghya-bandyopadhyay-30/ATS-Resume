@@ -28,13 +28,13 @@ ATS-ASAP Code Custodians is an intelligent full-stack application designed for i
 ## Tech Stack
 
 ### Frontend
-- React with TypeScript
-- Tailwind CSS
-- Vite
+- `React` with `TypeScript`
+- `Tailwind` CSS
+- `Vite`
 
 ### Backend
-- Python
-- FastAPI + Uvicorn
+- `Python`
+- `FastAPI` + `Uvicorn`
 - Email Notification System
 - Resume Parsing Module
 - Testing with `pytest`
@@ -72,9 +72,7 @@ python3 -m venv .venv              # Create virtual environment
 ```
 ```bash
 source .venv/bin/activate          # For macOS/Linux
-````
-#### OR
-```bash
+
 .venv\Scripts\activate             # For Windows
 ```
 
